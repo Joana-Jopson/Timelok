@@ -1,0 +1,71 @@
+<input type="hidden" name="schedule_type" value="{{ prefix }}">
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <label class="form-label">Schedule Code</label>
+    <input type="text" name="{{ prefix }}_schedule_code" class="form-control"
+           value="{{ schedule.schedule_code }}">
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">In Time</label>
+    <input type="time" name="{{ prefix }}_in_time" class="form-control"
+           value="{{ schedule.in_time|time:'H:i' }}">
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Out Time</label>
+    <input type="time" name="{{ prefix }}_out_time" class="form-control"
+           value="{{ schedule.out_time|time:'H:i' }}">
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Flexible Minutes</label>
+    <input type="number" name="{{ prefix }}_flexible_min" class="form-control"
+           value="{{ schedule.flexible_min }}">
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Grace In Minutes</label>
+    <input type="number" name="{{ prefix }}_grace_in_min" class="form-control"
+           value="{{ schedule.grace_in_min }}">
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Grace Out Minutes</label>
+    <input type="number" name="{{ prefix }}_grace_out_min" class="form-control"
+           value="{{ schedule.grace_out_min }}">
+  </div>
+
+  <div class="col-md-6 form-check mt-4">
+    <input type="checkbox" name="{{ prefix }}_open_shift" value="1"
+           class="form-check-input" id="{{ prefix }}_open_shift"
+           {% if schedule.open_shift %}checked{% endif %}>
+    <label class="form-check-label" for="{{ prefix }}_open_shift">Open Shift</label>
+  </div>
+
+  <div class="col-md-6 form-check mt-4">
+    <input type="checkbox" name="{{ prefix }}_night_shift" value="1"
+           class="form-check-input" id="{{ prefix }}_night_shift"
+           {% if schedule.night_shift %}checked{% endif %}>
+    <label class="form-check-label" for="{{ prefix }}_night_shift">Night Shift</label>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Schedule Color</label>
+    <input type="color" name="{{ prefix }}_sch_color" class="form-control form-control-color"
+           value="{{ schedule.sch_color|default:'#000000' }}">
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Required Work Hours</label>
+    <input type="time" name="{{ prefix }}_required_work_hours" class="form-control"
+           value="{{ schedule.required_work_hours|time:'H:i' }}">
+  </div>
+
+  <div class="col-md-6 form-check mt-4">
+    <input type="checkbox" name="{{ prefix }}_Status_Flag" class="form-check-input"
+           {% if schedule.Status_Flag %}checked{% endif %}>
+    <label class="form-check-label">Status Flag</label>
+  </div>
+</div>

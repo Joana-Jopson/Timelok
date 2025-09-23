@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Recognition</title>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(to bottom right, #000000, #0000aa);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        #video {
+            border: 4px dotted green;
+            border-radius: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px green; }
+            50% { box-shadow: 0 0 20px lime; }
+            100% { box-shadow: 0 0 10px green; }
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background: #00ccff;
+            color: black;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0099cc;
+        }
+
+        #canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+   <h2>Show your face to the camera</h2>
+    <video id="video" width="480" height="360" autoplay></video>
+    <button onclick="capture()">Verify</button>
+    <canvas id="canvas" width="480" height="360" style="display:none"></canvas>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        navigator.mediaDevices.getUserMedia({video:true}).then(s=>video.srcObject=s);
+
+        function capture() {
+            ctx.drawImage(video,0,0,canvas.width,canvas.height);
+            const dataURL = canvas.toDataURL('image/jpeg');
+            const form = new FormData();
+            form.append('image', dataURL);
+            form.append('action', '{{ action }}');  // Important: action passed from view
+
+            fetch("{% url 'verify_face_api' %}", {
+                method:'POST',
+                credentials:'include',
+                body: form
+            }).then(r=>r.json()).then(data=>{
+                if(data.status==='success') {
+                    window.location.href = data.redirect_url;
+                } else {
+                    alert(data.message);
+                    if(data.redirect) window.location.href="{% url 'login' %}";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

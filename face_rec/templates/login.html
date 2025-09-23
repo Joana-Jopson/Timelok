@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timelok</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+  <!-- Optional FontAwesome for eye icon -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid px-10">
+      <a class="navbar-brand" href="#">Timelok</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav w-30 justify-content-evenly">
+          <li class="nav-item">
+            <a class="nav-link nav-link-box active" href="#">Index</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-box" href="#">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Carousel -->
+  <div id="backgroundCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" style="background-image: url('https://plus.unsplash.com/premium_photo-1661877737564-3dfd7282efcb?q=80&w=2100&auto=format&fit=crop');"></div>
+      <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1508385082359-f38ae991e8f2?q=80&w=1974&auto=format&fit=crop');"></div>
+      <div class="carousel-item" style="background-image: url('https://media.istockphoto.com/id/1435605327/photo/cybersecurity-concept-global-network-security-technology.jpg');"></div>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay"></div>
+
+  <!-- Login Box -->
+  <div class="login-box">
+    <h4>Sign In</h4>
+    {% for msg in messages %}
+        <div class="alert alert-dismissible fade show d-flex align-items-center
+          {% if msg.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}" role="alert">
+          <i class="fas {% if msg.tags == 'error' %}fa-times-circle{% else %}fa-check-circle{% endif %} me-2"></i>
+          <div>{{ msg }}</div>
+          <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    <form method="POST" action="{% url 'login' %}"><!---->
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required/>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required/>
+        <i class="fa-solid fa-eye password-toggle" style="margin-top:18px" id="togglePassword"></i>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+  </div>
+  <!-- Punch Modal -->
+<div class="modal fade" id="punchModal" tabindex="-1" aria-labelledby="punchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="punchModalLabel">Attendance</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="modalMessage"></p>
+        <div class="d-flex justify-content-around">
+          <button type="button" class="btn btn-success" id="btnYes">Yes</button>
+          <button type="button" class="btn btn-danger" id="btnNo">No</button>
+          <button type="button" class="btn btn-warning d-none" id="btnOut">Punch Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    {% if show_modal %}
+      var punchModal = new bootstrap.Modal(document.getElementById('punchModal'));
+      punchModal.show();
+
+      const mode = "{{ modal_mode }}";
+      const btnYes = document.getElementById('btnYes');
+      const btnNo = document.getElementById('btnNo');
+      const btnOut = document.getElementById('btnOut');
+      const modalMessage = document.getElementById('modalMessage');
+
+      if (mode === 'in_or_out') {
+        modalMessage.textContent = "Punch In again or Punch Out?";
+        btnOut.classList.remove('d-none');
+      } else {
+        modalMessage.textContent = "Punch In?";
+      }
+
+      btnYes.onclick = () => {
+        goToFaceRecognition('in');
+      };
+
+      btnNo.onclick = () => {
+        goToFaceRecognition('no');
+      };
+
+      btnOut.onclick = () => {
+        goToFaceRecognition('out');
+      };
+
+      function goToFaceRecognition(action) {
+        // Pass action as query param
+        window.location.href = "{% url 'verify_face' %}" + "?action=" + action;
+      }
+    {% endif %}
+  });
+</script>
+
+</body>
+</html>

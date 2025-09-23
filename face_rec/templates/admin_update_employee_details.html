@@ -1,0 +1,319 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manage Employees</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3 vh-100 d-flex flex-column" style="width: 250px; position: fixed; top: 0; bottom: 0;">
+
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'admin_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i>  General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'country_list' %}"><i class="fas fa-globe me-2"></i>Country</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'grade_list' %}"><i class="fas fa-list-ul me-2"></i>Grade</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'designation_list' %}"><i class="fa-solid fa-user-tie me-2"></i> Designation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_type_list' %}"><i class="fa-solid fa-users-gear"></i> Employee Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'permission_type_list' %}"><i class="fa-solid fa-user-shield me-2"></i> Permission Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'leave_type_list' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_ccompany' %}"><i class="fas fa-building me-2"></i> Contractor Company</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_type_view' %}"><i class="fas fa-plus me-2"></i> New Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_organization' %}"><i class="fas fa-building me-2"></i>Organization</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#scheduleMenu" role="button" aria-expanded="false" aria-controls="scheduleMenu">
+          <i class="fas fa-calendar-alt me-2"></i> Schedules
+        </a>
+        <div class="collapse ps-4" id="scheduleMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_schedule' %}"><i class="fas fa-plus me-2"></i>Add Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_org_schedule' %}"><i class="fa-solid fa-people-group me-2"></i>Organization Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'group_schedule_page' %}"><i class="fa-solid fa-people-group me-2"></i>Group Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa-solid fa-user-tie me-2"></i>Employee Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa fa-calendar"></i> Holidays</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage' %}"><i class="fas fa-plus me-2"></i>Manage Employees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_group_list' %}"><i class="fa-solid fa-user-plus me-2"></i>Employee Groups</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-comments me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+      <li class="nav-item"><a href="{% url 'attendance_report' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Report</a></li>
+      <li class="nav-item"><a href="{% url 'privilege_management' %}" class="nav-link text-white nav-link-box"><i class="fas fa-key me-2"></i> Security</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 ms-250" style="margin-left: 250px;">
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
+  <div class="container mt-4">
+    <div class="card shadow-sm p-4">
+      <h5>Update Employee</h5>
+    </div>
+
+    <!-- Update Form -->
+    <form method="post" action="{% url 'update_employee' employee.employee_id %}" enctype="multipart/form-data" class="card p-3 mb-3">
+      {% csrf_token %}
+        <!-- Preview Existing Image -->
+   {% if employee.photo_file_name %}
+  <div class="mb-2">
+    <img src="{{ employee.photo_file_name.url }}" alt="Employee Photo" width="150" height="150" style="object-fit: cover; border: 1px solid #ccc;">
+  </div>
+{% endif %}
+      <div class="row g-3">
+        <div class="col-md-4"><label>Emp No*</label><input name="emp_no" value="{{ employee.emp_no }}" class="form-control"></div>
+        <div class="col-md-4"><label>First Name*</label><input name="firstname_eng" value="{{ employee.firstname_eng }}" class="form-control"></div>
+        <div class="col-md-4"><label>Last Name*</label><input name="lastname_eng" value="{{ employee.lastname_eng }}" class="form-control"></div>
+
+        <!-- Organization -->
+        <div class="col-md-4"><label>Organization*</label>
+          <select name="organization_id" class="form-select">
+            <option value="" disabled {% if not organization_id %}selected{% endif %}>Select a Location</option>
+            {% for o in organizations %}
+              {% if not o.organization_eng|lower == 'root' %}
+                <option value="{{ o.organization_id }}" {% if employee.organization_id.organization_id == o.organization_id %}selected{% endif %}>{{ o.organization_eng }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Country -->
+        <div class="col-md-4"><label>Country*</label>
+          <select name="passport_issue_country" class="form-select">
+            <option value="" disabled {% if not passport_issue_country_id %}selected{% endif %}>Select a Country</option>
+            {% for c in countries %}
+              <option value="{{ c.country_id }}" {% if employee.passport_issue_country_id.country_id == c.country_id %}selected{% endif %}>{{ c.country_eng }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Designation -->
+        <div class="col-md-4"><label>Designation</label>
+          <select name="designation_id" class="form-select">
+            <option value="" disabled {% if not designation_id %}selected{% endif %}>Select a Designation</option>
+            {% for d in designations %}
+              <option value="{{ d.designation_id }}" {% if employee.designation_id.designation_id == d.designation_id %}selected{% endif %}>{{ d.designation_eng }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Employee Type -->
+        <div class="col-md-4"><label>Employee Type</label>
+          <select name="employee_type_id" class="form-select">
+            <option value="" disabled {% if not employee_type_id %}selected{% endif %}>Select Employee Type</option>
+            {% for t in employee_types %}
+              <option value="{{ t.employee_type_id }}" {% if employee.employee_type_id.employee_type_id == t.employee_type_id %}selected{% endif %}>{{ t.employee_type_eng }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Location -->
+        <div class="col-md-4"><label>Location</label>
+          <select name="work_location_id" class="form-select">
+            <option value="" disabled {% if not location_id %}selected{% endif %}>Select a Location</option>
+            {% for l in locations %}
+              <option value="{{ l.location_id }}" {% if employee.work_location_id.location_id == l.location_id %}selected{% endif %}>{{ l.location_eng }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Contractor Company -->
+        <div class="col-md-4"><label>Contractor Company</label>
+          <select name="contract_company_id" class="form-select">
+            <option value="" disabled {% if not contract_company_id %}selected{% endif %}>Select a Contractor</option>
+            {% for cc in contractor_companies %}
+              <option value="{{ cc.contract_company_id }}" {% if employee.contract_company_id.contract_company_id == cc.contract_company_id %}selected{% endif %}>{{ cc.contract_company_eng }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Grade -->
+        <div class="col-md-4"><label>Grade</label>
+          <select name="grade_id" class="form-select">
+            <option value="" disabled {% if not grade_id %}selected{% endif %}>Select a Grade</option>
+            {% for g in grades %}
+              <option value="{{ g.grade_id }}" {% if employee.grade_id.grade_id == g.grade_id %}selected{% endif %}>{{ g.grade_eng }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label>Manager*</label>
+          <select name="manager_id" class="form-select" required>
+            <option value="" disabled>Select Manager</option>
+            {% for m in managers %}
+            <option value="{{ m.employee_id }}" {% if employee.manager_id and employee.manager_id.employee_id == m.employee_id %}selected{% endif %}>
+              {{ m.firstname_eng }} {{ m.lastname_eng }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        
+
+
+        <!-- Upload Image -->
+        <div class="col-md-4"><label>Upload Image</label>
+          <input type="file" name="photo_file_name" accept="image/*" class="form-control">
+        </div>
+
+        <!-- Dates -->
+        <div class="col-md-4"><label>Active Date*</label>
+          <input type="datetime-local" name="active_date" value="{{ employee.active_date|date:'Y-m-d\\TH:i' }}" class="form-control">
+        </div>
+        <div class="col-md-4"><label>Join Date*</label>
+          <input type="datetime-local" name="join_date" value="{{ employee.join_date|date:'Y-m-d\\TH:i' }}" class="form-control">
+        </div>
+
+        <!-- Radio fields -->
+        <div class="col-md-12"><label>Open Shift?</label>
+          <div class="form-check form-check-inline"><input class="form-check-input" name="open_shift_flag" value="1" type="radio" {% if employee.open_shift_flag %}checked{% endif %}>Yes</div>
+          <div class="form-check form-check-inline"><input class="form-check-input" name="open_shift_flag" value="0" type="radio" {% if not employee.open_shift_flag %}checked{% endif %}>No</div>
+        </div>
+
+        <div class="col-md-12"><label>Overtime?</label>
+          <div class="form-check form-check-inline"><input name="overtime_flag" value="1" type="radio" {% if employee.overtime_flag %}checked{% endif %}>Yes</div>
+          <div class="form-check form-check-inline"><input name="overtime_flag" value="0" type="radio" {% if not employee.overtime_flag %}checked{% endif %}>No</div>
+        </div>
+
+        <div class="col-md-12"><label>Manager?*</label>
+          <div class="form-check form-check-inline"><input name="manager_flag" value="Y" type="radio" {% if employee.manager_flag == 'Y' %}checked{% endif %}>Yes</div>
+          <div class="form-check form-check-inline"><input name="manager_flag" value="N" type="radio" {% if employee.manager_flag == 'N' %}checked{% endif %}>No</div>
+        </div>
+
+        <div class="col-md-12"><label>Remarks</label>
+          <textarea name="remarks" class="form-control">{{ employee.remarks }}</textarea>
+        </div>
+      </div>
+
+      <button class="btn btn-primary mt-3">Update</button>
+    </form>
+
+    <!-- Success Popup -->
+    {% if success %}
+    <div id="popup-box" class="popup-success">
+      <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <i class="fa fa-check-circle"></i>
+        <h2>Successful</h2>
+        <p>You have updated successfully!</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<script>
+  function closePopup() {
+    document.getElementById("popup-box").style.display = "none";
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "greeting": ["hi", "hello", "hey", "good morning", "good evening"],
+  "punch_in_today": ["punch in time", "when did i punch in today", "time for punch in", "punch-in today"],
+  "punch_out_today": ["punch out time", "when did i punch out today", "time for punch out", "punch-out today"],
+  "punch_in_yesterday": ["punch in yesterday", "when did i punch in yesterday"],
+  "punch_out_yesterday": ["punch out yesterday", "when did i punch out yesterday"],
+  "lateness": ["how late am i", "late today", "lateness", "am i late", "late status"],
+  "schedule": ["my schedule", "schedule", "working schedule", "shift"],
+  "leave_summary": ["leaves this month", "how many leaves i applied", "leave summary", "leave last month"],
+  "permission_summary": ["permission summary", "permission applied", "permission count"],
+  "holiday_next": ["next holiday", "upcoming holiday"],
+  "holiday_last": ["last holiday", "previous holiday"],
+  "holiday_this_month": ["holidays this month"],
+  "holiday_next_month": ["holidays next month"],
+  "holiday_last_month": ["holidays last month"]
+}

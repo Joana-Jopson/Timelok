@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Face Logout</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #000000, #0d47a1);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        #video-container {
+            position: relative;
+            width: 480px;
+            height: 360px;
+            border: 3px dotted green;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            background-color: #00bcd4;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0, 188, 212, 0.4);
+        }
+
+        button:hover {
+            background-color: #0288d1;
+            box-shadow: 0 0 25px rgba(2, 136, 209, 0.7);
+        }
+
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Show your face to logout</h2>
+
+    <div id="video-container">
+        <video id="video" autoplay></video>
+    </div>
+
+    <button onclick="capture()">Logout</button>
+
+    <canvas id="canvas" width="480" height="360"></canvas>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+
+        navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+            video.srcObject = stream;
+        });
+
+        function capture() {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL('image/jpeg');
+
+            fetch("{% url 'logout_face_api' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'image=' + encodeURIComponent(dataURL)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert("Logout successful");
+                    window.location.href = "{% url 'login' %}";
+                } else {
+                    alert(data.message);
+                    if (data.redirect) {
+                        window.location.href = "{% url 'login' %}";
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

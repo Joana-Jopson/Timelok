@@ -1,0 +1,309 @@
+<!--admin_create_group.html-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timelok Dashboard</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3 vh-100 d-flex flex-column" style="width: 250px; position: fixed; top: 0; bottom: 0;">
+
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'admin_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i>  General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'country_list' %}"><i class="fas fa-globe me-2"></i>Country</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'grade_list' %}"><i class="fas fa-list-ul me-2"></i>Grade</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'designation_list' %}"><i class="fa-solid fa-user-tie me-2"></i> Designation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_type_list' %}"><i class="fa-solid fa-users-gear"></i> Employee Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'permission_type_list' %}"><i class="fa-solid fa-user-shield me-2"></i> Permission Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'leave_type_list' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_ccompany' %}"><i class="fas fa-building me-2"></i> Contractor Company</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_type_view' %}"><i class="fas fa-plus me-2"></i> New Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_organization' %}"><i class="fas fa-building me-2"></i>Organization</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#scheduleMenu" role="button" aria-expanded="false" aria-controls="scheduleMenu">
+          <i class="fas fa-calendar-alt me-2"></i> Schedules
+        </a>
+        <div class="collapse ps-4" id="scheduleMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_schedule' %}"><i class="fas fa-plus me-2"></i>Add Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_org_schedule' %}"><i class="fa-solid fa-people-group me-2"></i>Organization Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'group_schedule_page' %}"><i class="fa-solid fa-people-group me-2"></i>Group Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa-solid fa-user-tie me-2"></i>Employee Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa fa-calendar"></i> Holidays</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage' %}"><i class="fas fa-plus me-2"></i>Manage Employees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_group_list' %}"><i class="fa-solid fa-user-plus me-2"></i>Employee Groups</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-comments me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+      <li class="nav-item"><a href="{% url 'attendance_report' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Report</a></li>
+      <li class="nav-item"><a href="{% url 'privilege_management' %}" class="nav-link text-white nav-link-box"><i class="fas fa-key me-2"></i> Security</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 ms-250" style="margin-left: 250px;">
+    
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
+    <!-- Dashboard Boxes -->
+     <div class="container mt-4">
+      <div class="card shadow-sm p-4 mb-4">
+        <h5>Employee Groups</h5>
+        {% for msg in messages %}
+          <div class="alert alert-{{ msg.tags }} alert-dismissible fade show">
+            {{ msg }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+        <form method="get" class="row mb-3" id="searchSortForm">
+          <div class="col-sm-6"><input name="q" value="{{ q }}" class="form-control" placeholder="Search code or name"></div>
+          <div class="col-auto"><button type="submit" class="btn btn-primary">Search</button></div>
+          <div class="col-auto"><button type="button" class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#addForm">Add</button></div>
+          <div class="col-auto"><button type="button" class="btn btn-warning" id="updateToggleBtn">Update</button></div>
+          <div class="col-auto"><button type="button" class="btn btn-danger" id="deleteToggleBtn">Delete</button></div>
+          <div class="col-sm-2">
+    <select name="sort" class="form-select" id="sortSelect">
+      <option value="">Sort By</option>
+      <option value="code" {% if sort == "code" %}selected{% endif %}>Code</option>
+      <option value="start" {% if sort == "start" %}selected{% endif %}>Start Date</option>
+      <option value="end" {% if sort == "end" %}selected{% endif %}>End Date</option>
+      <option value="schedule" {% if sort == "schedule" %}selected{% endif %}>Schedule</option>
+    </select>
+  </div>
+        </form>
+
+        <!-- Add Form -->
+        <div class="collapse mb-3" id="addForm">
+          <form method="post" action="{% url 'employee_group_add' %}" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-3"><input name="code" class="form-control" placeholder="Code*" required></div>
+            <div class="col-md-4"><input name="name" class="form-control" placeholder="Name*" required></div>
+            <div class="col-md-2"><div class="form-check"><input name="schedule_flag" value="1" type="checkbox" class="form-check-input"><label class="form-check-label">Schedule</label></div></div>
+            <div class="col-md-3"><input type="date" name="start" class="form-control" placeholder="Start Date*" required></div>
+            <div class="col-md-3"><input type="date" name="end" class="form-control" placeholder="End Date*" required></div>
+            <div class="col-auto"><button type="submit" class="btn btn-success">Submit</button></div>
+    
+          </form>
+        </div>
+
+        <!-- View Table -->
+        <table class="table table-bordered">
+          <thead><tr><th>Code</th><th>Name</th><th>Schedule?</th><th>Start</th><th>End</th><th>Last Updated</th><th>View</th><th>Add Member</th></tr></thead>
+          <tbody>
+            {% for g in items %}
+            <tr class="{% if g.group_end_Date and g.group_end_Date|date:'Y-m-d' < today|date:'Y-m-d' %}table-danger{% endif %}">
+              <td>{{ g.group_code }}</td>
+              <td>{{ g.group_name_eng }}</td>
+              <td>{{ g.schedule_flag|yesno:"Yes,No" }}</td>
+              <td>{{ g.group_start_Date|date:"Y-m-d" }}</td>
+              <td>{{ g.group_end_Date|date:"Y-m-d" }}</td>
+              <td>{{ g.last_updated_date|date:"Y-m-d H:i" }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{forloop.counter}}"><i class="fas fa-eye"></i></button>
+                <div class="modal fade" id="modal{{forloop.counter}}">
+                  <div class="modal-dialog"><div class="modal-content">
+                    <div class="modal-header"><h5>{{ g.group_name_eng }}</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+                    <div class="modal-body">
+                      <table class="table"><tr><th>Code</th><td>{{ g.group_code }}</td></tr>
+                        <tr><th>Name</th><td>{{ g.group_name_eng }}</td></tr>
+                        <tr><th>Schedule?</th><td>{{ g.schedule_flag|yesno:"Yes,No" }}</td></tr>
+                        <tr><th>Start Date</th><td>{{ g.group_start_Date|date:"Y-m-d" }}</td></tr>
+                        <tr><th>End Date</th><td>{{ g.group_end_Date|date:"Y-m-d" }}</td></tr>
+                        <tr><th>Created</th><td>{{ g.created_date|date:"Y-m-d H:i" }}</td></tr>
+                        <tr><th>Last Updated</th><td>{{ g.last_updated_date|date:"Y-m-d H:i" }}</td></tr>
+                      </table>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+                  </div></div></div>
+              </td>
+              <td>
+                <a href="{% url 'admin_add_members' group_id=g.employee_group_id %}" class="btn btn-sm btn-success" title="Add Member">
+                  <i class="fas fa-user-plus"></i>
+                </a>
+              </td>
+            </tr>
+            {% empty %}
+              <tr><td colspan="7">No groups yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <!-- Update Form -->
+        <form method="post" action="{% url 'employee_group_update' %}" id="updateForm" style="display:none;">
+          {% csrf_token %}
+          <table class="table table-bordered">
+            <thead><tr><th>Code</th><th>Name</th><th>Schedule?</th><th>Start</th><th>End</th></tr></thead>
+            <tbody>
+              {% for g in items %}
+              <tr>
+                <input type="hidden" name="id_{{forloop.counter}}" value="{{g.employee_group_id}}">
+                <td><input name="code_{{forloop.counter}}" class="form-control" value="{{ g.group_code }}"></td>
+                <td><input name="name_{{forloop.counter}}" class="form-control" value="{{ g.group_name_eng }}"></td>
+                <td>
+                  <select name="schedule_{{forloop.counter}}" class="form-select">
+                    <option value="1" {% if g.schedule_flag %}selected{% endif %}>Yes</option>
+                    <option value="0" {% if not g.schedule_flag %}selected{% endif %}>No</option>
+                  </select>
+                </td>
+                <td><input type="date" name="start_{{forloop.counter}}" class="form-control" value="{{ g.group_start_Date|date:'Y-m-d' }}"></td>
+                <td><input type="date" name="end_{{forloop.counter}}" class="form-control" value="{{ g.group_end_Date|date:'Y-m-d' }}"></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <input type="hidden" name="total_rows" value="{{ items|length }}">
+          <div class="text-end"><button class="btn btn-success">Submit Updates</button></div>
+        </form>
+
+        <!-- Delete Form -->
+        <form method="post" action="{% url 'employee_group_delete' %}" id="deleteForm" style="display:none;">
+          {% csrf_token %}
+          <table class="table table-bordered">
+            <thead><tr><th>Code</th><th>Name</th><th>Action</th></tr></thead>
+            <tbody>
+              {% for g in items %}
+              <tr>
+                <td>{{ g.group_code }}</td><td>{{ g.group_name_eng }}</td>
+                <td>
+                  <button name="delete_id" value="{{ g.employee_group_id }}" type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete group?')">Delete</button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+      </div>
+
+      <!-- Pagination -->
+      <nav><ul class="pagination">
+        {% if items.has_previous %}<li class="page-item"><a class="page-link" href="?q={{q}}&page={{items.previous_page_number}}">Prev</a></li>{% endif %}
+        <li class="page-item active"><span class="page-link">{{ items.number }}</span></li>
+        {% if items.has_next %}<li class="page-item"><a class="page-link" href="?q={{q}}&page={{items.next_page_number}}">Next</a></li>{% endif %}
+      </ul></nav>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function(){
+      let upd = document.getElementById('updateToggleBtn'), del = document.getElementById('deleteToggleBtn'),
+          uform = document.getElementById('updateForm'), dform = document.getElementById('deleteForm');
+      upd.addEventListener('click', e => { e.preventDefault(); uform.style.display = uform.style.display==='block'?'none':'block'; dform.style.display='none'; upd.textContent = uform.style.display==='block'?'Cancel Update':'Update'; del.textContent='Delete'; });
+      del.addEventListener('click', e => { e.preventDefault(); dform.style.display = dform.style.display==='block'?'none':'block'; uform.style.display='none'; del.textContent = dform.style.display==='block'?'Cancel Delete':'Delete'; upd.textContent='Update'; });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('sortSelect').addEventListener('change', function () {
+      document.getElementById('searchSortForm').submit();
+    });
+  });
+  </script>
+</body>
+</html>

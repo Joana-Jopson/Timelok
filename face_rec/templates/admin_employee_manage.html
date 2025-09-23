@@ -1,0 +1,449 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manage Employees</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3 vh-100 d-flex flex-column" style="width: 250px; position: fixed; top: 0; bottom: 0;">
+
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'admin_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i>  General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'country_list' %}"><i class="fas fa-globe me-2"></i>Country</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'grade_list' %}"><i class="fas fa-list-ul me-2"></i>Grade</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'designation_list' %}"><i class="fa-solid fa-user-tie me-2"></i> Designation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_type_list' %}"><i class="fa-solid fa-users-gear"></i> Employee Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'permission_type_list' %}"><i class="fa-solid fa-user-shield me-2"></i> Permission Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'leave_type_list' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_ccompany' %}"><i class="fas fa-building me-2"></i> Contractor Company</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_type_view' %}"><i class="fas fa-plus me-2"></i> New Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_organization' %}"><i class="fas fa-building me-2"></i>Organization</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#scheduleMenu" role="button" aria-expanded="false" aria-controls="scheduleMenu">
+          <i class="fas fa-calendar-alt me-2"></i> Schedules
+        </a>
+        <div class="collapse ps-4" id="scheduleMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_schedule' %}"><i class="fas fa-plus me-2"></i>Add Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_org_schedule' %}"><i class="fa-solid fa-people-group me-2"></i>Organization Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'group_schedule_page' %}"><i class="fa-solid fa-people-group me-2"></i>Group Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa-solid fa-user-tie me-2"></i>Employee Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa fa-calendar"></i> Holidays</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage' %}"><i class="fas fa-plus me-2"></i>Manage Employees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_group_list' %}"><i class="fa-solid fa-user-plus me-2"></i>Employee Groups</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-comments me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+      <li class="nav-item"><a href="{% url 'attendance_report' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Report</a></li>
+      <li class="nav-item"><a href="{% url 'privilege_management' %}" class="nav-link text-white nav-link-box"><i class="fas fa-key me-2"></i> Security</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 ms-250" style="margin-left: 250px;">
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+  <!-- Toast Notifications -->
+  <div aria-live="polite" aria-atomic="true" class="toastify">
+    {% for message in messages %}
+      <div class="toast align-items-center text-bg-{{ message.tags }} border-0 mb-2" role="alert" data-bs-delay="3000">
+        <div class="d-flex">
+          <div class="toast-body">{{ message }}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="container mt-4">
+    <div class="card shadow-sm p-4">
+        <h5>Employees</h5>
+        <div class="d-flex justify-content-between align-items-center my-3">
+      <input class="form-control w-50" type="text" value="{{ search }}" placeholder="Search" id="searchInput">
+      <button class="btn btn-outline-primary" onclick="window.location='?search='+document.getElementById('searchInput').value">🔍</button>
+      <button class="btn btn-success" onclick="toggleAddForm()">Add Employee</button>
+    </div>
+
+    <!-- Add Form -->
+    <form method="post" action="{% url 'employee_add' %}" enctype="multipart/form-data" class="card p-3 mb-3" id="addForm" style="display:none;">
+
+      {% csrf_token %}
+      <!-- Required -->
+      <div class="row g-3">
+        <div class="col-md-4"><label>Emp No*</label><input name="emp_no" value="{{ form_data.emp_no|default:'' }}" class="form-control"></div>
+        <div class="col-md-4"><label>First Name*</label><input name="firstname_eng" value="{{ form_data.firstname_eng|default:'' }}" class="form-control"></div>
+        <div class="col-md-4"><label>Last Name*</label><input name="lastname_eng" value="{{ form_data.lastname_eng|default:'' }}" class="form-control"></div>
+        <div class="col-md-4"><label>Organization*</label>
+          <select name="organization_id" class="form-select">
+            <option value="">Choose</option>
+            {% for o in organizations %}
+              {% if not o.organization_eng|lower == 'root' %}
+              <!--option value="{{ o.organization_id }}">{{ o.organization_eng }}</option-->
+              <option value="{{ o.organization_id }}" {% if form_data.organization_id == o.organization_id|stringformat:"s" %}selected{% endif %}>{{ o.organization_eng }}</option>
+
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-4"><label>Country*</label>
+          <select name="passport_issue_country" class="form-select">
+            <option value="">Choose</option>
+            {% for c in countries %}
+              <!--option value="{{ c.country_id }}">{{ c.country_eng }}</option-->
+              <option value="{{ c.country_id }}" {% if form_data.country_id == c.country_id|stringformat:"s" %}selected{% endif %}>{{ c.country_eng }}</option>
+            {% endfor %}
+          </select>
+        </div>
+         <div class="col-md-4"><label>Designation</label>
+    <select name="designation_id" class="form-select">
+      <option value="">Choose</option>
+      {% for d in designations %}
+        <!--option value="{{ d.designation_id }}">{{ d.designation_eng }}</option-->
+        <option value="{{ d.designation_id }}" {% if form_data.designation_id == d.designation_id|stringformat:"s" %}selected{% endif %}>{{ d.designation_eng }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-4"><label>Employee Type</label>
+    <select name="employee_type_id" class="form-select">
+      <option value="">Choose</option>
+      {% for t in employee_types %}
+        <!--option value="{{ t.employee_type_id }}">{{ t.employee_type_eng }}</option-->
+        <option value="{{ t.employee_type_id }}" {% if form_data.employee_type_id == t.employee_type_id|stringformat:"s" %}selected{% endif %}>{{ t.employee_type_eng }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-4"><label>Location</label>
+    <select name="work_location_id" class="form-select">
+      <option value="" disabled {% if not location_id %}selected{% endif %}>Select a Location</option>
+      {% for l in locations %}
+        <!--option value="{{ l.location_id }}" style="color:'black';">{{ l.location_eng }}</option-->
+        <option value="{{ l.location_id }}" {% if form_data.location_id == l.location_id|stringformat:"s" %}selected{% endif %}>{{ l.location_eng }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-4"><label>Contractor Company</label>
+    <select name="contract_company_id" class="form-select">
+      <option value="">Choose</option>
+      {% for cc in contractor_companies %}
+        <!--option value="{{ cc.contract_company_id }}">{{ cc.contract_company_eng }}</option-->
+        <option value="{{ cc.contract_company_id }}" {% if form_data.contract_company_id == cc.contract_company_id|stringformat:"s" %}selected{% endif %}>{{ cc.contract_company_eng }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-4"><label>Grade</label>
+  <select name="grade_id" class="form-select">
+    <option value="">Choose</option>
+    {% for g in grades %}
+      <!--option value="{{ g.grade_id }}">{{ g.grade_eng }}</option-->
+      <option value="{{ g.grade_id }}" {% if form_data.grade_id == g.grade_id|stringformat:"s" %}selected{% endif %}>{{ g.grade_eng }}</option>
+    {% endfor %}
+  </select>
+</div>
+<div class="col-md-4">
+  <label>Manager*</label>
+  <select name="manager_id" class="form-select" required>
+    <option value="">Choose Manager</option>
+    {% for mgr in managers %}
+      <option value="{{ mgr.employee_id }}"
+        {% if form_data.manager_id == mgr.employee_id|stringformat:"s" %}selected{% endif %}>
+        {{ mgr.firstname_eng }} {{ mgr.lastname_eng }} ({{ mgr.emp_no }})
+      </option>
+    {% endfor %}
+  </select>
+</div>
+
+
+  <div class="col-md-4"><label>Upload Image</label>
+    <input type="file" name="photo_file_name" value="{{ photo_file_name }}" accept="image/*" class="form-control">
+  </div>
+        <div class="col-md-4"><label>Active Date*</label><input type="datetime-local" name="active_date" value="{{ form_data.active_date|default:'' }}"  class="form-control"></div>
+        <div class="col-md-4"><label>Join Date*</label><input type="datetime-local" name="join_date" value="{{ form_data.join_date|default:'' }}" class="form-control"></div>
+        <div class="col-md-12"><label>Open Shift?</label>
+          <div class="form-check form-check-inline"><input class="form-check-input" name="open_shift_flag" value="1" type="radio">Yes</div>
+          <div class="form-check form-check-inline"><input class="form-check-input" name="open_shift_flag" value="0" type="radio" checked>No</div>
+        </div>
+        <div class="col-md-12"><label>Overtime?</label>
+          <div class="form-check form-check-inline"><input name="overtime_flag" value="1" type="radio">Yes</div>
+          <div class="form-check form-check-inline"><input name="overtime_flag" value="0" type="radio" checked>No</div>
+        </div>
+        <div class="col-md-12"><label>Manager?*</label>
+          <div class="form-check form-check-inline"><input name="manager_flag" value="Y" type="radio">Yes</div>
+          <div class="form-check form-check-inline"><input name="manager_flag" value="N" type="radio" checked>No</div>
+        </div>
+        <div class="col-md-12"><label>Remarks</label>
+          <textarea name="remarks" class="form-control"></textarea>
+        </div>
+      </div>
+      <button class="btn btn-primary mt-3">Submit</button>
+    </form>
+    {% if success %}
+    <div id="popup-box" class="popup-success">
+         <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <i class="fa fa-check-circle"></i>
+            <h2>Successful</h2>
+            <p>{{ success }}</p>
+        </div>
+    </div>
+    {% elif error %}
+    <div id="popup-box" class="popup-error">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <i class="fa fa-times-circle"></i>
+            <h2>Unsuccessful</h2>
+            <p>{{ error }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Employees Table -->
+    <table class="table table-bordered">
+      <thead>
+        <tr><th>Emp No</th><th>Name</th><th>Manager Name</th><th>Manager Role</th> <th>Status</th><th>Action</th>
+        <th>Update</th><th>View</th></tr>
+      </thead>
+      <tbody>
+        {% for e in employees %}
+          <tr>
+            <td>{{ e.emp_no }}</td>
+            <td>{{ e.firstname_eng }} {{ e.lastname_eng }}</td>
+            <td>
+  {% if e.manager_id %}
+    {{ e.manager_id.firstname_eng }} {{ e.manager_id.lastname_eng }}
+  {% else %}
+    -
+  {% endif %}
+</td>
+<td>
+  {% if e.manager_flag|stringformat:"s" == "Y" %}Yes{% else %}No{% endif %}
+</td>
+            <td>{% if e.active_flag %}Active{% else %}Inactive{% endif %}</td>
+            <td>
+              {% if e.active_flag %}
+                <a href="{% url 'employee_block' e.employee_id %}" class="btn btn-sm btn-danger">Block</a>
+              {% else %}
+                <a href="{% url 'employee_unblock' e.employee_id %}" class="btn btn-sm btn-success">Unblock</a>
+              {% endif %}
+            </td>
+            <td>
+              {% if admin.active_flag and admin.firstname_eng == "Administrator" %}
+              <a href="{% url 'update_employee' e.employee_id %}" class="btn btn-sm btn-warning">
+                <i class="fas fa-edit"></i>
+              </a>
+              {% endif %}
+            </td>
+            <td>
+              <button class="btn btn-sm btn-info" onclick="viewEmployee({{ e.employee_id }})">
+                <i class="fas fa-eye"></i>
+              </button>
+               <script id="empData-{{ e.employee_id }}" type="application/json">
+{
+  "employee_id": "{{ e.employee_id }}",
+  "name": "{{ e.firstname_eng }} {{ e.lastname_eng }}",
+  "organization": "{% if e.organization_id %}{{ e.organization_id.organization_eng }}{% else %}N/A{% endif %}",
+  "country": "{% if e.passport_issue_country_id %}{{ e.passport_issue_country_id.country_eng }}{% else %}N/A{% endif %}",
+  "location": "{% if e.work_location_id %}{{ e.work_location_id.location_eng }}{% else %}N/A{% endif %}",
+  "designation": "{% if e.designation_id %}{{ e.designation_id.designation_eng }}{% else %}N/A{% endif %}",
+  "employee_type": "{% if e.employee_type_id %}{{ e.employee_type_id.employee_type_eng }}{% else %}N/A{% endif %}",
+  "grade": "{% if e.grade_id %}{{ e.grade_id.grade_eng }}{% else %}N/A{% endif %}",
+  "manager_name": "{% if e.manager_id %}{{ e.manager_id.firstname_eng }} {{ e.manager_id.lastname_eng }}{% else %}N/A{% endif %}",
+  "join_date": "{{ e.join_date|date:'Y-m-d H:i' }}",
+  "open_shift": "{{ e.open_shift_flag }}",
+  "overtime": "{{ e.overtime_flag }}",
+  "manager": "{{ e.manager_flag }}",
+  "photo_url": "{% if e.photo_file_name %}{{ e.photo_file_name.url }}{% else %}{% static 'img/default-user.png' %}{% endif %}"
+
+
+}
+</script>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="5" class="text-center">No employees</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>  
+<!-- View Employee Modal -->
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h5 class="modal-title" id="employeeModalLabel">Employee Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex">
+        <div style="width: 200px;">
+          <img id="empPhoto" src="" alt="Employee Photo" class="img-fluid rounded shadow" style="height: 200px; width: 200px; object-fit: cover;">
+        </div>
+        <div class="ms-4">
+          <p><strong>Name:</strong> <span id="empName"></span></p>
+          <p><strong>Organization:</strong> <span id="empOrg"></span></p>
+          <p><strong>Country:</strong> <span id="empCountry"></span></p>
+          <p><strong>Location:</strong> <span id="empLocation"></span></p>
+          <p><strong>Designation:</strong> <span id="empDesignation"></span></p>
+          <p><strong>Employee Type:</strong> <span id="empType"></span></p>
+          <p><strong>Grade:</strong> <span id="empGrade"></span></p>
+          <p><strong>Manager:</strong> <span id="empManagerName"></span></p>
+          <p><strong>Join Date:</strong> <span id="empJoinDate"></span></p>
+          <p><strong>Open Shift:</strong> <span id="empOpenShift"></span></p>
+          <p><strong>Overtime:</strong> <span id="empOvertime"></span></p>
+          <p><strong>Manager Role:</strong> <span id="empManager"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+  <script>
+    document.querySelectorAll('.toast').forEach(t => new bootstrap.Toast(t).show());
+    function toggleAddForm() {
+      const f = document.getElementById('addForm');
+      f.style.display = f.style.display === 'none' ? 'block' : 'none';
+    }
+    function viewEmployee(empId) {
+  const emp = JSON.parse(document.getElementById('empData-' + empId).textContent);
+
+  document.getElementById('empPhoto').src = emp.photo_url || "{% static 'img/default-user.png' %}";
+  document.getElementById('empName').textContent = emp.name;
+  document.getElementById('empOrg').textContent = emp.organization;
+  document.getElementById('empCountry').textContent = emp.country;
+  document.getElementById('empLocation').textContent = emp.location;
+  document.getElementById('empDesignation').textContent = emp.designation;
+  document.getElementById('empType').textContent = emp.employee_type;
+  document.getElementById('empGrade').textContent = emp.grade;
+  document.getElementById('empManagerName').textContent = emp.manager_name;
+  document.getElementById('empJoinDate').textContent = emp.join_date;
+  document.getElementById('empOpenShift').textContent = emp.open_shift == "1" ? "Yes" : "No";
+  document.getElementById('empOvertime').textContent = emp.overtime == "1" ? "Yes" : "No";
+  document.getElementById('empManager').textContent = emp.manager == "Y" ? "Yes" : "No";
+
+  new bootstrap.Modal(document.getElementById('employeeModal')).show();
+}
+
+ 
+  </script>
+  {% if error %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    toggleAddForm();
+  });
+</script>
+{% endif %}
+</body>
+</html>

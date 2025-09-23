@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Test Manager Filter</title>
+</head>
+<body>
+    <h2>Employees with manager_id = {{ manager_id_test }}</h2>
+
+    {% if employees %}
+        <ul>
+        {% for emp in employees %}
+            <li>{{ emp.employee_id }} - {{ emp.firstname_eng }} {{ emp.lastname_eng }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p><strong>No employees found for manager_id={{ manager_id_test }}</strong></p>
+    {% endif %}
+</body>
+</html>

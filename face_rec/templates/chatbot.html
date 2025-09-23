@@ -1,0 +1,275 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chatbot</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <style>
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .chat-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+      overflow: hidden;
+    }
+    .chat-header {
+      background-color: #008069;
+      padding: 15px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .chat-body {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .msg-user, .msg-bot {
+      max-width: 75%;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    .msg-user {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+    .msg-bot {
+      background-color: #f1f0f0;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+    .chat-footer {
+      padding: 10px 15px;
+      background-color: #eaeaea;
+      display: flex;
+      gap: 10px;
+    }
+    .chat-footer input {
+      flex: 1;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 25px;
+      outline: none;
+    }
+    .chat-footer button {
+      background-color: #008069;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+    }
+  </style>
+</head>
+<body class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3 vh-100 d-flex flex-column" style="width: 250px; position: fixed; top: 0; bottom: 0;">
+
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'admin_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i>  General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'country_list' %}"><i class="fas fa-globe me-2"></i>Country</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'grade_list' %}"><i class="fas fa-list-ul me-2"></i>Grade</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'designation_list' %}"><i class="fa-solid fa-user-tie me-2"></i> Designation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_type_list' %}"><i class="fa-solid fa-users-gear"></i> Employee Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'permission_type_list' %}"><i class="fa-solid fa-user-shield me-2"></i> Permission Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'leave_type_list' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_ccompany' %}"><i class="fas fa-building me-2"></i> Contractor Company</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_type_view' %}"><i class="fas fa-plus me-2"></i> New Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_organization' %}"><i class="fas fa-building me-2"></i>Organization</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#scheduleMenu" role="button" aria-expanded="false" aria-controls="scheduleMenu">
+          <i class="fas fa-calendar-alt me-2"></i> Schedules
+        </a>
+        <div class="collapse ps-4" id="scheduleMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_schedule' %}"><i class="fas fa-plus me-2"></i>Add Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_org_schedule' %}"><i class="fa-solid fa-people-group me-2"></i>Organization Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'group_schedule_page' %}"><i class="fa-solid fa-people-group me-2"></i>Group Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa-solid fa-user-tie me-2"></i>Employee Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa fa-calendar"></i> Holidays</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage' %}"><i class="fas fa-plus me-2"></i>Manage Employees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_group_list' %}"><i class="fa-solid fa-user-plus me-2"></i>Employee Groups</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-comments me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+      <li class="nav-item"><a href="{% url 'attendance_report' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Report</a></li>
+      <li class="nav-item"><a href="{% url 'privilege_management' %}" class="nav-link text-white nav-link-box"><i class="fas fa-key me-2"></i> Security</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 ms-250" style="margin-left: 250px;">
+    
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+<div class="chat-container">
+  <div class="chat-header">
+    🤖 HR Assistant
+  </div>
+  <div class="chat-body" id="chatbox">
+    <div class="msg-bot">Hi! I'm your HR assistant. How can I help you today?</div>
+  </div>
+  <div class="chat-footer">
+    <input type="text" id="msg" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+
+<script>
+  async function sendMessage() {
+    let msg = document.getElementById("msg").value.trim();
+    if (!msg) return;
+
+    let chatbox = document.getElementById("chatbox");
+
+    // Add user message to chat
+    chatbox.innerHTML += `<div class="msg-user">${msg}</div>`;
+    chatbox.scrollTop = chatbox.scrollHeight;
+    document.getElementById("msg").value = "";
+
+    let res = await fetch("{% url 'chatbot' %}", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": "{{ csrf_token }}",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: "message=" + encodeURIComponent(msg) + "&employee_id={{ request.session.employee_id }}"
+    });
+
+    let data = await res.json();
+
+    // Add bot response to chat
+    chatbox.innerHTML += `<div class="msg-bot">${data.response}</div>`;
+    chatbox.scrollTop = chatbox.scrollHeight;
+  }
+
+  // Allow Enter key to send message
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("msg").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>

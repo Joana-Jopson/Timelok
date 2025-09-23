@@ -1,0 +1,263 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timelok Dashboard</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3 vh-100 d-flex flex-column" style="width: 250px; position: fixed; top: 0; bottom: 0;">
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'employee_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i> General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            {% if manage_designation_access %}
+              <li class="nav-item">
+                <a class="nav-link text-white nav-link-box" href="{% url 'manager_manage_designations' %}">
+                  <i class="fas fa-id-badge me-2"></i> Manage Designations
+                </a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <div class="text-danger px-3 mt-2 small">
+                  <i class="fas fa-ban me-1"></i> No access to Manage Designations
+                </div>
+              </li>
+            {% endif %}
+
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_permission_type' %}"><i class="fa-solid fa-user-shield me-2"></i>Permission Types</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_view_leave_types' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item"><a href="{% url 'employee_schedule_calendar' %}" class="nav-link text-white nav-link-box"><i class="fas fa-calendar-alt me-2"></i> Schedule</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_details' %}"><i class="fas fa-plus me-2"></i> My Details</a>
+            </li>
+            {% if manage_employee_access %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage_others' %}">
+                <i class="fas fa-users-gear me-2"></i> Manage Employees
+              </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <div class="text-danger px-3 mt-2 small">
+                <i class="fas fa-ban me-1"></i> No access to Manage Employees
+              </div>
+            </li>
+            {% endif %}
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_apply_leave' %}"><i class="fas fa-plus me-2"></i> Apply Leaves</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_apply_permission' %}"><i class="fas fa-plus me-2"></i> Apply Permission</a>
+            </li>
+            {% if user.manager_flag == 'Y' %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            {% endif %}
+            {% if user.manager_flag == 'Y' %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+            {% endif %}
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#reportMenu" role="button" aria-expanded="false" aria-controls="reportMenu">
+          <i class="fas fa-chart-bar me-2"></i> Report
+        </a>
+        <div class="collapse ps-4" id="reportMenu">
+          <ul class="nav flex-column">
+            {% if user.manager_flag == 'Y' %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'managers_employee_report' %}"><i class="fas fa-plus me-2"></i> Employee Reports</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_attendance_reports' %}"><i class="fas fa-plus me-2"></i> My Reports</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 ms-250" style="margin-left: 250px;">
+    
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
+    <!-- Dashboard Boxes -->
+    <div class="container py-4">
+      {% if messages %}
+        {% for msg in messages %}
+          <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+      <div class="card shadow-sm p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Employee Details</h2>
+        <button class="btn btn-primary" id="updateBtn" onclick="enableEdit()">Update</button>
+      </div>
+      
+        <div class="card-body">
+      <form id="employeeForm" method="post" enctype="multipart/form-data" action="{% url 'employee_update' employee.employee_id %}">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <img src="{% static employee.photo_file_name %}" class="img-thumbnail mb-3" style="max-width:200px;"/>
+          </div>
+          <div class="col-md-8">
+            <!-- Editable fields -->
+            <div class="row mb-3">
+              <div class="col-md-6"><label>First Name</label>
+                <input type="text" name="first_name" class="form-control" value="{{ employee.firstname_eng }}" disabled>
+              </div>
+              <div class="col-md-6"><label>Last Name</label>
+                <input type="text" name="last_name" class="form-control" value="{{ employee.lastname_eng }}" disabled>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6"><label>Mobile</label>
+                <input type="text" name="mobile" class="form-control" value="{{ employee.mobile }}" disabled>
+              </div>
+              <div class="col-md-6"><label>Email</label>
+                <input type="email" name="email" class="form-control" value="{{ employee.email }}" disabled>
+              </div>
+            </div>
+            <div class="mb-3"><label>Gender</label><br>
+              <div class="form-check form-check-inline">
+                <input type="radio" name="gender" value="m" {% if employee.gender == 'm' %}checked{% endif %} disabled> Male
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" name="gender" value="f" {% if employee.gender == 'f' %}checked{% endif %} disabled> Female
+              </div>
+            </div>
+            <!-- Read-only fields -->
+            <div class="row mb-3">
+              <div class="col-md-6"><label>Organization</label>
+                <input class="form-control" value="{{ employee.organization_id.organization_eng }}" disabled></div>
+              <div class="col-md-6"><label>Grade</label>
+                <input class="form-control" value="{{ employee.grade_id.grade_eng }}" disabled></div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6"><label>Designation</label>
+                <input class="form-control" value="{{ employee.designation_id.designation_eng }}" disabled></div>
+              <div class="col-md-6"><label>Employee Type</label>
+                <input class="form-control" value="{{ employee.employee_type_id.employee_type_eng }}" disabled></div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6"><label>Passport Country</label>
+                <input class="form-control" value="{{ employee.passport_issue_country_id.country_eng }}" disabled></div>
+              <div class="col-md-6"><label>Work Location</label>
+                <input class="form-control" value="{{ employee.work_location_id.location_eng }}" disabled></div>
+            </div>
+            <div class="mb-3"><label>Contract Company</label>
+              <input class="form-control" value="{{ employee.contract_company_id.contract_company_eng }}" disabled></div>
+            <div class="row mb-3">
+              <div class="col-md-4"><label>Join Date</label>
+                <input class="form-control" value="{{ employee.join_date }}" disabled></div>
+              <div class="col-md-4"><label>Open Shift</label>
+                <input class="form-control" value="{{ employee.open_shift_flag|yesno:'Yes,No' }}" disabled></div>
+              <div class="col-md-4"><label>Overtime</label>
+                <input class="form-control" value="{{ employee.overtime_flag|yesno:'Yes,No' }}" disabled></div>
+            </div>
+            <div class="mb-3"><label>Manager</label>
+              <input class="form-control" value="{{ employee.manager_flag|yesno:'Yes,No' }}" disabled></div>
+            <button id="submitBtn" type="submit" class="btn btn-success d-none">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function enableEdit() {
+      const form = document.getElementById('employeeForm');
+      ['first_name','last_name','mobile','email'].forEach(n=> {
+        const el = form.querySelector(`[name="${n}"]`);
+        if(el) el.disabled = false;
+      });
+      form.querySelectorAll('input[type=radio]').forEach(r=>r.disabled=false);
+      document.getElementById('updateBtn').classList.add('d-none');
+      document.getElementById('submitBtn').classList.remove('d-none');
+    }
+  </script>
+</body>
+</html>

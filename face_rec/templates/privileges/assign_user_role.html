@@ -1,0 +1,33 @@
+<!--assign_user_role.html-->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assign Role to User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+    <h2>Assign Role to User</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>User:</label>
+            <select name="user_id" class="form-select">
+                {% for user in users %}
+                    <option value="{{ user.user_id }}">{{ user.employee_id.firstname_eng }} {{ user.employee_id.lastname_eng }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Role:</label>
+            <select name="role_id" class="form-select">
+                {% for role in roles %}
+                    <option value="{{ role.role_id }}">{{ role.role_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button class="btn btn-success">Assign</button>
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,395 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timelok Dashboard</title>
+
+  <!-- Bootstrap -->
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3 vh-100 d-flex flex-column" style="width: 250px; position: fixed; top: 0; bottom: 0;">
+
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'admin_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i>  General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'country_list' %}"><i class="fas fa-globe me-2"></i>Country</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'grade_list' %}"><i class="fas fa-list-ul me-2"></i>Grade</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'designation_list' %}"><i class="fa-solid fa-user-tie me-2"></i> Designation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_type_list' %}"><i class="fa-solid fa-users-gear"></i> Employee Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'permission_type_list' %}"><i class="fa-solid fa-user-shield me-2"></i> Permission Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'leave_type_list' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_ccompany' %}"><i class="fas fa-building me-2"></i> Contractor Company</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_type_view' %}"><i class="fas fa-plus me-2"></i> New Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_organization' %}"><i class="fas fa-building me-2"></i>Organization</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#scheduleMenu" role="button" aria-expanded="false" aria-controls="scheduleMenu">
+          <i class="fas fa-calendar-alt me-2"></i> Schedules
+        </a>
+        <div class="collapse ps-4" id="scheduleMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_schedule' %}"><i class="fas fa-plus me-2"></i>Add Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_org_schedule' %}"><i class="fa-solid fa-people-group me-2"></i>Organization Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'group_schedule_page' %}"><i class="fa-solid fa-people-group me-2"></i>Group Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa-solid fa-user-tie me-2"></i>Employee Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_holidays' %}"><i class="fa fa-calendar"></i> Holidays</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage' %}"><i class="fas fa-plus me-2"></i>Manage Employees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_group_list' %}"><i class="fa-solid fa-user-plus me-2"></i>Employee Groups</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-comments me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+      <li class="nav-item"><a href="{% url 'attendance_report' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Report</a></li>
+      <li class="nav-item"><a href="{% url 'privilege_management' %}" class="nav-link text-white nav-link-box"><i class="fas fa-key me-2"></i> Security</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content  -->
+  <div class="flex-grow-1 ms-250" style="margin-left: 250px;">
+    
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
+       <!-- Dashboard Metrics Boxes -->
+    <div class="container mt-4">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card shadow p-3 text-center">
+            <h5 class="card-title">Total Employees</h5>
+            <h3>{{ total_employees }}</h3>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow p-3 text-center">
+            <h5 class="card-title">Punched In</h5>
+            <h3>{{ punched_in }}</h3>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow p-3 text-center">
+            <h5 class="card-title">Punched Out</h5>
+            <h3>{{ punched_out }}</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Joins -->
+  <div class="card mt-4">
+    <!-- Recently Joined Employees -->
+  <h4>Recently Joined Employees</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Employee No</th>
+        <th>Name</th>
+        <th>Join Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for emp in recent_joins %}
+      <tr>
+        <td>{{ emp.emp_no }}</td>
+        <td>{{ emp.firstname_eng }}</td>
+        <td>{{ emp.join_date|date:"Y-m-d" }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3">No recent joiners.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Late Today -->
+  <div class="card mt-4">
+    <div class="card-header bg-warning text-dark">Late Punches Today</div>
+    <ul class="list-group list-group-flush">
+      {% for late in late_today %}
+        <li class="list-group-item">{{ late.firstname_eng }} - {{ late.late }} minutes late</li>
+      {% empty %}
+        <li class="list-group-item">No late punches today.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Frequent Latecomers -->
+  <div class="card mt-4">
+    <div class="card-header bg-dark text-white">Frequent Latecomers (Last 3 Days)</div>
+    <ul class="list-group list-group-flush">
+      {% for late in frequent_late %}
+        <li class="list-group-item">{{ late.employee_name }} - {{ late.late_days }} day(s)</li>
+      {% empty %}
+        <li class="list-group-item">No frequent latecomers.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Anomalies -->
+      <div class="row mt-4 mb-5">
+        <div class="col-md-12">
+          <div class="card p-3 shadow">
+            <h5>🚨 Anomalies in Punch Patterns</h5>
+            <ul class="list-group list-group-flush">
+              {% for emp in anomalies %}
+              <li class="list-group-item">{{ emp.firstname_eng }}</li>
+              {% empty %}
+              <li class="list-group-item">No anomalies detected.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+  <!-- Charts and Stats Row -->
+   <div class="row mt-5">
+        <div class="col-md-6">
+          <div class="card p-3 shadow">
+            <h5>Attendance Trends (Last 30 Days)</h5>
+            <canvas id="attendanceTrendChart"></canvas>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card p-3 shadow">
+            <h5>Organization-wise Employee Count</h5>
+            <canvas id="departmentChart"></canvas>
+          </div>
+        </div>
+        <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card p-3 shadow">
+            <h5>Designation Distribution</h5>
+            <canvas id="designationDistChart"></canvas>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card p-3 shadow">
+            <h5> Daily Punch-in Window</h5>
+            <canvas id="hourlyPunchChart"></canvas>
+          </div>
+        </div>
+        <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card p-3 shadow">
+            <h5>Contractor Company Distribution</h5>
+            <div class="card-body">
+    <canvas id="contractorChart" width="400" height="200"></canvas>
+  </div>
+          </div>
+        </div>
+        
+      </div>
+
+
+
+
+
+<!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Chart 1: Attendance Trend (last 7 days)
+  const trendCtx = document.getElementById('attendanceTrendChart').getContext('2d');
+  new Chart(trendCtx, {
+    type: 'line',
+    data: {
+      labels: {{ trend_labels|safe }},
+      datasets: [{
+        label: 'Attendance Count',
+        data: {{ trend_counts|safe }},
+        borderColor: 'rgba(75, 192, 192, 1)',
+        fill: false,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Attendance Trend (Last 7 Days)'
+        }
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Date'
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Punch Count'
+          },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  // Chart 2: Designation Distribution
+  new Chart(document.getElementById('designationDistChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ designation_labels|safe }},
+      datasets: [{
+        label: 'Employees',
+        data: {{ designation_counts|safe }},
+        backgroundColor: 'orange'
+      }]
+    }
+  });
+
+    // Chart 3: Department-wise Distribution
+  new Chart(document.getElementById('departmentChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ department_labels|safe }},
+      datasets: [{
+        label: 'Employees',
+        data: {{ department_counts|safe }},
+        backgroundColor: 'green'
+      }]
+    }
+  });
+  // Chart 4: Contractor-wise Distribution
+    const contractorCtx = document.getElementById('contractorChart');
+  if (contractorCtx) {
+    new Chart(contractorCtx, {
+      type: 'bar',
+      data: {
+        labels: {{ contractor_labels|safe }},
+        datasets: [{
+          label: 'Employees',
+          data: {{ contractor_counts|safe }},
+          backgroundColor: '#6f42c1'
+        }]
+      }
+    });
+  }
+
+  // Chart 5: Hourly Punch Count
+  new Chart(document.getElementById('hourlyPunchChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ punch_hours|safe }},
+      datasets: [{
+        label: 'Punch IN Count',
+        data: {{ punch_counts|safe }},
+        backgroundColor: 'rgba(0, 123, 255, 0.6)',
+        borderColor: '#007bff',
+        borderWidth: 1
+      }]
+    }
+  });
+
+  
+</script>
+
+
+
+</body>
+</html>

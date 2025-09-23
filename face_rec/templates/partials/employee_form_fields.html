@@ -1,0 +1,170 @@
+{# employee_form_fields.html #}
+{% load static %}
+{% if not mode %}
+    {% include 'employee_manage_others.html' %}
+{% endif %}
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+
+
+    <!-- Emp No -->
+    <div class="col-md-6">
+      <label class="form-label">Employee Number *</label>
+      <input type="text" name="emp_no" class="form-control" required
+             value="{% if mode == 'update' %}{{ employee.emp_no }}{% endif %}"
+             {% if mode == 'update' %}readonly{% endif %}>
+    </div>
+
+    <!-- First Name -->
+    <div class="col-md-6">
+      <label class="form-label">First Name *</label>
+      <input type="text" name="firstname_eng" class="form-control" required
+             value="{% if mode == 'update' %}{{ employee.firstname_eng }}{% endif %}">
+    </div>
+
+    <!-- Last Name -->
+    <div class="col-md-6">
+      <label class="form-label">Last Name *</label>
+      <input type="text" name="lastname_eng" class="form-control" required
+             value="{% if mode == 'update' %}{{ employee.lastname_eng }}{% endif %}">
+    </div>
+
+    <!-- Organization -->
+    <div class="col-md-6">
+      <label class="form-label">Organization</label>
+      <select name="organization_id" class="form-select">
+            <option value="" disabled {% if not organization_id %}selected{% endif %}>Select a Location</option>
+            {% for o in organizations %}
+              {% if not o.organization_eng|lower == 'root' %}
+                <option value="{{ o.organization_id }}" {% if employee.organization_id.organization_id == o.organization_id %}selected{% endif %}>{{ o.organization_eng }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+    </div>
+
+    <!-- Designation -->
+    <div class="col-md-6">
+      <label class="form-label">Designation</label>
+      <select name="designation_id" class="form-select">
+            <option value="" disabled {% if not designation_id %}selected{% endif %}>Select a Designation</option>
+            {% for d in designations %}
+              <option value="{{ d.designation_id }}" {% if employee.designation_id.designation_id == d.designation_id %}selected{% endif %}>{{ d.designation_eng }}</option>
+            {% endfor %}
+          </select>
+    </div>
+
+    <!-- Employee Type -->
+    <div class="col-md-6">
+      <label class="form-label">Employee Type</label>
+      <select name="employee_type_id" class="form-select">
+            <option value="" disabled {% if not employee_type_id %}selected{% endif %}>Select Employee Type</option>
+            {% for t in employee_types %}
+              <option value="{{ t.employee_type_id }}" {% if employee.employee_type_id.employee_type_id == t.employee_type_id %}selected{% endif %}>{{ t.employee_type_eng }}</option>
+            {% endfor %}
+      </select>
+    </div>
+
+    <!-- Passport Issue Country -->
+    <div class="col-md-6">
+      <label class="form-label">Passport Issue Country *</label>
+      <select name="passport_issue_country" class="form-select">
+            <option value="" disabled {% if not passport_issue_country_id %}selected{% endif %}>Select a Country</option>
+            {% for c in countries %}
+              <option value="{{ c.country_id }}" {% if employee.passport_issue_country_id.country_id == c.country_id %}selected{% endif %}>{{ c.country_eng }}</option>
+            {% endfor %}
+          </select>
+    </div>
+
+    <!-- Work Location -->
+    <div class="col-md-6">
+      <label class="form-label">Work Location</label>
+      <select name="work_location_id" class="form-select">
+            <option value="" disabled {% if not location_id %}selected{% endif %}>Select a Location</option>
+            {% for l in locations %}
+              <option value="{{ l.location_id }}" {% if employee.work_location_id.location_id == l.location_id %}selected{% endif %}>{{ l.location_eng }}</option>
+            {% endfor %}
+          </select>
+    </div>
+
+    <!-- Contractor Company -->
+    <div class="col-md-6">
+      <label class="form-label">Contractor Company</label>
+      <select name="contract_company_id" class="form-select">
+            <option value="" disabled {% if not contract_company_id %}selected{% endif %}>Select a Contractor</option>
+            {% for cc in contractor_companies %}
+              <option value="{{ cc.contract_company_id }}" {% if employee.contract_company_id.contract_company_id == cc.contract_company_id %}selected{% endif %}>{{ cc.contract_company_eng }}</option>
+            {% endfor %}
+          </select>
+    </div>
+
+    <!-- Grade -->
+    <div class="col-md-6">
+      <label class="form-label">Grade</label>
+       <select name="grade_id" class="form-select">
+            <option value="" disabled {% if not grade_id %}selected{% endif %}>Select a Grade</option>
+            {% for g in grades %}
+              <option value="{{ g.grade_id }}" {% if employee.grade_id.grade_id == g.grade_id %}selected{% endif %}>{{ g.grade_eng }}</option>
+            {% endfor %}
+          </select>
+    </div>
+
+    <!-- Manager -->
+    <div class="col-md-6">
+      <label class="form-label">Manager *</label>
+     <select name="manager_id" class="form-select" required>
+            <option value="" disabled>Select Manager</option>
+            {% for m in managers %}
+            <option value="{{ m.employee_id }}" {% if employee.manager_id and employee.manager_id.employee_id == m.employee_id %}selected{% endif %}>
+              {{ m.firstname_eng }} {{ m.lastname_eng }}
+            </option>
+            {% endfor %}
+          </select>
+    </div>
+
+    <!-- Manager Flag -->
+    <div class="col-md-6">
+      <label class="form-label">Manager Flag *</label>
+      <select class="form-select" name="manager_flag" required>
+        <option value="Y" {% if mode == 'update' and employee.manager_flag == 'Y' %}selected{% endif %}>Yes</option>
+        <option value="N" {% if mode == 'update' and employee.manager_flag == 'N' %}selected{% endif %}>No</option>
+      </select>
+    </div>
+
+    <!-- Join Date -->
+    <div class="col-md-6">
+      <label class="form-label">Join Date *</label>
+      <input type="date" class="form-control" name="join_date"
+             value="{% if mode == 'update' %}{{ employee.join_date|date:'Y-m-d' }}{% endif %}" required>
+    </div>
+
+    <!-- Active Date -->
+    <div class="col-md-6">
+      <label class="form-label">Active Date *</label>
+      <input type="date" class="form-control" name="active_date"
+             value="{% if mode == 'update' %}{{ employee.active_date|date:'Y-m-d' }}{% endif %}" required>
+    </div>
+
+    <!-- Open Shift -->
+    <div class="col-md-12"><label>Open Shift?</label>
+          <div class="form-check form-check-inline"><input class="form-check-input" name="open_shift_flag" value="1" type="radio" {% if employee.open_shift_flag %}checked{% endif %}>Yes</div>
+          <div class="form-check form-check-inline"><input class="form-check-input" name="open_shift_flag" value="0" type="radio" {% if not employee.open_shift_flag %}checked{% endif %}>No</div>
+        </div>
+
+        <div class="col-md-12"><label>Overtime?</label>
+          <div class="form-check form-check-inline"><input name="overtime_flag" value="1" type="radio" {% if employee.overtime_flag %}checked{% endif %}>Yes</div>
+          <div class="form-check form-check-inline"><input name="overtime_flag" value="0" type="radio" {% if not employee.overtime_flag %}checked{% endif %}>No</div>
+        </div>
+
+    <!-- Photo -->
+    <div class="col-md-6">
+      <label class="form-label">Photo {% if mode == 'add' %}*{% endif %}</label>
+      <input type="file" class="form-control" name="photo_file_name" {% if mode == 'add' %}required{% endif %}>
+    </div>
+
+    <!-- Remarks -->
+    <div class="col-md-12">
+      <label class="form-label">Remarks</label>
+      <textarea class="form-control" name="remarks" rows="2">{% if mode == 'update' %}{{ employee.remarks }}{% endif %}</textarea>
+    </div>
+
+  </div>

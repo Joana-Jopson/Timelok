@@ -1,0 +1,345 @@
+<!--admin_add_leave_type.html-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timelok</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3 vh-100 d-flex flex-column" style="width: 250px; position: fixed; top: 0; bottom: 0;">
+
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'admin_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i>  General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'country_list' %}"><i class="fas fa-globe me-2"></i>Country</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'grade_list' %}"><i class="fas fa-list-ul me-2"></i>Grade</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'designation_list' %}"><i class="fa-solid fa-user-tie me-2"></i> Designation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_type_list' %}"><i class="fa-solid fa-users-gear"></i> Employee Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'permission_type_list' %}"><i class="fa-solid fa-user-shield me-2"></i> Permission Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'leave_type_list' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_ccompany' %}"><i class="fas fa-building me-2"></i> Contractor Company</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_type_view' %}"><i class="fas fa-plus me-2"></i> New Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_organization' %}"><i class="fas fa-building me-2"></i>Organization</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#scheduleMenu" role="button" aria-expanded="false" aria-controls="scheduleMenu">
+          <i class="fas fa-calendar-alt me-2"></i> Schedules
+        </a>
+        <div class="collapse ps-4" id="scheduleMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_schedule' %}"><i class="fas fa-plus me-2"></i>Add Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_org_schedule' %}"><i class="fa-solid fa-people-group me-2"></i>Organization Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'group_schedule_page' %}"><i class="fa-solid fa-people-group me-2"></i>Group Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa-solid fa-user-tie me-2"></i>Employee Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa fa-calendar"></i> Holidays</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage' %}"><i class="fas fa-plus me-2"></i>Manage Employees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_group_list' %}"><i class="fa-solid fa-user-plus me-2"></i>Employee Groups</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-comments me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+      <li class="nav-item"><a href="{% url 'attendance_report' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Report</a></li>
+      <li class="nav-item"><a href="{% url 'privilege_management' %}" class="nav-link text-white nav-link-box"><i class="fas fa-key me-2"></i> Security</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 ms-250" style="margin-left: 250px;">
+    
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
+    <!-- Dashboard Boxes -->
+    <div class="container mt-4">
+      <div class="card shadow-sm p-4">
+        <h5>Leave Types</h5>
+      {% for msg in messages %}
+        <div class="alert alert-dismissible fade show d-flex align-items-center
+          {% if msg.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}" role="alert">
+          <i class="fas {% if msg.tags == 'error' %}fa-times-circle{% else %}fa-check-circle{% endif %} me-2"></i>
+          <div>{{ msg }}</div>
+          <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+
+        <!-- Search & Action Buttons -->
+        <form method="get" class="row mb-3">
+          <div class="col-sm-6"><input name="q" value="{{ q }}" class="form-control" placeholder="Search code, description, or gender"></div>
+          <div class="col-auto"><button type="submit" class="btn btn-primary">Search</button></div>
+          <div class="col-auto"><button type="button" class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#addForm">Add</button></div>
+          <div class="col-auto"><button type="button" class="btn btn-warning" id="updateToggleBtn">Update</button></div>
+          <div class="col-auto"><button type="button" class="btn btn-danger" id="deleteToggleBtn">Delete</button></div>
+        </form>
+
+        <!-- Add Form -->
+        <div class="collapse mb-3" id="addForm">
+          <form method="post" action="{% url 'leave_type_add' %}" id="addLeaveForm" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-3"><input name="code" required class="form-control" placeholder="Code*"></div>
+            <div class="col-md-5"><input name="leaveDesc_eng" required class="form-control" placeholder="Description*"></div>
+            <div class="col-md-2">
+              <select name="specific_gender" class="form-select">
+                <option value="">Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+            </div>
+            <div class="col-md-1"><div class="form-check"><input type="checkbox" name="official_flag" value="1" class="form-check-input"><label class="form-check-label">Official</label></div></div>
+            <div class="col-md-1"><div class="form-check"><input type="checkbox" name="status_Flag" value="1" class="form-check-input"><label class="form-check-label">Active</label></div></div>
+
+            <div class="col-md-3"><input name="total_entitled_days" type="number" step="0.01" min="0" required class="form-control" placeholder="Total days*"></div>
+            <div class="col-md-3"><input name="full_pay_days" type="number" step="0.01" min="0" class="form-control" placeholder="Full‑pay days"></div>
+            <div class="col-md-3"><input name="half_pay_days" type="number" step="0.01" min="0" class="form-control" placeholder="Half‑pay days"></div>
+            <div class="col-md-3"><input name="unpaidDays" type="number" step="0.01" min="0" class="form-control" placeholder="Unpaid days"></div>
+
+            <div class="col-md-6"><input name="apply_prior_to_days" type="number" step="0.01" min="0" class="form-control" placeholder="Prior‑to days"></div>
+            <div class="col-md-2"><div class="form-check"><input type="checkbox" name="is_comment_mandatory" value="1" class="form-check-input"><label class="form-check-label">Comment required</label></div></div>
+
+            <div class="col-12"><button type="submit" class="btn btn-success">Submit</button></div>
+          </form>
+        </div>
+
+        <!-- Table View -->
+        <table class="table table-bordered">
+          <thead><tr><th>Code</th><th>Description</th><th>Gender</th><th>Last Updated</th><th>View</th></tr></thead>
+          <tbody>
+            {% for d in items %}
+            <tr>
+              <td>{{ d.code }}</td>
+              <td>{{ d.leaveDesc_eng }}</td>
+              <td>{{ d.specific_gender }}</td>
+              <td>{{ d.last_updated_date }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{ forloop.counter }}"><i class="fas fa-eye"></i></button>
+                <div class="modal fade" id="modal{{ forloop.counter }}"><div class="modal-dialog"><div class="modal-content">
+                  <div class="modal-header"><h5>{{ d.leaveDesc_eng }}</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+                  <div class="modal-body">
+                    <table class="table">
+                      <tr><th>Code</th><td>{{ d.code }}</td></tr>
+                      <tr><th>Description</th><td>{{ d.leaveDesc_eng }}</td></tr>
+                      <tr><th>Gender</th><td>{{ d.specific_gender }}</td></tr>
+                      <tr><th>Full‑pay</th><td>{{ d.full_pay_days }}</td></tr>
+                      <tr><th>Half‑pay</th><td>{{ d.half_pay_days }}</td></tr>
+                      <tr><th>Unpaid</th><td>{{ d.unpaidDays }}</td></tr>
+                      <tr><th>Total</th><td>{{ d.total_entitled_days }}</td></tr>
+                      <tr><th>Prior days</th><td>{{ d.apply_prior_to_days }}</td></tr>
+                      <tr><th>Comment?</th><td>{{ d.is_comment_mandatory|yesno:"Yes,No" }}</td></tr>
+                      <tr><th>Official?</th><td>{{ d.official_flag|yesno:"Yes,No" }}</td></tr>
+                      <tr><th>Status</th><td>{{ d.status_Flag|yesno:"Active,Inactive" }}</td></tr>
+                      <tr><th>Updated</th><td>{{ d.last_updated_date }}</td></tr>
+                    </table>
+                  </div>
+                  <div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+                </div></div></div>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">No entries.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <!-- Update Form -->
+        <form method="post" action="{% url 'leave_type_update' %}" id="updateForm" style="display:none;">
+          {% csrf_token %}
+          <table class="table table-bordered">
+            <thead><tr><th>Code</th><th>Description</th><th>Gender</th><th>Total</th><th>Full</th><th>Half</th><th>Unpaid</th><th>Prior Days</th><th>Comment?</th><th>Official?</th><th>Status</th></tr></thead>
+            <tbody>
+              {% for d in items %}
+              <tr>
+                <input type="hidden" name="id_{{ forloop.counter }}" value="{{ d.leave_type_id }}">
+                <td><input name="code_{{ forloop.counter }}" class="form-control" value="{{ d.code }}"></td>
+                <td><input name="desc_{{ forloop.counter }}" class="form-control" value="{{ d.leaveDesc_eng }}"></td>
+                <td>
+                  <select name="gender_{{ forloop.counter }}" class="form-select">
+                    <option value="">?</option><option value="M" {% if d.specific_gender == "M" %}selected{% endif %}>M</option>
+                    <option value="F" {% if d.specific_gender == "F" %}selected{% endif %}>F</option>
+                  </select>
+                </td>
+                <td><input name="total_{{ forloop.counter }}" class="form-control" value="{{ d.total_entitled_days }}"></td>
+                <td><input name="full_{{ forloop.counter }}" class="form-control" value="{{ d.full_pay_days }}"></td>
+                <td><input name="half_{{ forloop.counter }}" class="form-control" value="{{ d.half_pay_days }}"></td>
+                <td><input name="unpaid_{{ forloop.counter }}" class="form-control" value="{{ d.unpaidDays }}"></td>
+                <td><input name="prior_{{ forloop.counter }}" class="form-control" value="{{ d.apply_prior_to_days }}"></td>
+                <td><select name="comment_{{ forloop.counter }}" class="form-select"><option value="1" {% if d.is_comment_mandatory %}selected{% endif %}>Yes</option><option value="0" {% if not d.is_comment_mandatory %}selected{% endif %}>No</option></select></td>
+                <td><select name="official_{{ forloop.counter }}" class="form-select"><option value="1" {% if d.official_flag %}selected{% endif %}>Yes</option><option value="0" {% if not d.official_flag %}selected{% endif %}>No</option></select></td>
+                <td><select name="status_{{ forloop.counter }}" class="form-select"><option value="1" {% if d.status_Flag %}selected{% endif %}>Active</option><option value="0" {% if not d.status_Flag %}selected{% endif %}>Inactive</option></select></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <input type="hidden" name="total_rows" value="{{ items|length }}">
+          <div class="text-end"><button class="btn btn-success">Submit Updates</button></div>
+        </form>
+
+        <!-- Delete Form -->
+        <form method="post" action="{% url 'leave_type_delete' %}" id="deleteForm" style="display:none;">
+          {% csrf_token %}
+          <table class="table table-bordered">
+            <thead><tr><th>Code</th><th>Description</th><th>Action</th></tr></thead>
+            <tbody>
+              {% for d in items %}
+              <tr>
+                <td>{{ d.code }}</td>
+                <td>{{ d.leaveDesc_eng }}</td>
+                <td>
+                  <button name="delete_id" value="{{ d.leave_type_id }}" type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete {{ d.leaveDesc_eng }}?')">Delete</button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+
+        <!-- Pager -->
+        <nav><ul class="pagination">
+          {% if items.has_previous %}<li class="page-item"><a class="page-link" href="?q={{ q }}&page={{ items.previous_page_number }}">Prev</a></li>{% endif %}
+          <li class="page-item active"><span class="page-link">{{ items.number }}</span></li>
+          {% if items.has_next %}<li class="page-item"><a class="page-link" href="?q={{ q }}&page={{ items.next_page_number }}">Next</a></li>{% endif %}
+        </ul></nav>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+
+  <!-- Toggle Forms JS -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function(){
+    const upd = document.getElementById('updateToggleBtn'), del = document.getElementById('deleteToggleBtn');
+    const uform = document.getElementById('updateForm'), dform = document.getElementById('deleteForm');
+
+    upd.addEventListener('click', e => {
+      e.preventDefault();
+      uform.style.display = (uform.style.display==='block'?'none':'block');
+      dform.style.display = 'none';
+      upd.textContent = uform.style.display==='block' ? 'Cancel Update' : 'Update';
+      del.textContent = 'Delete';
+    });
+
+    del.addEventListener('click', e => {
+      e.preventDefault();
+      dform.style.display = (dform.style.display==='block'?'none':'block');
+      uform.style.display = 'none';
+      del.textContent = dform.style.display==='block' ? 'Cancel Delete' : 'Delete';
+      upd.textContent = 'Update';
+    });
+
+    document.getElementById('addLeaveForm').addEventListener('submit', e => {
+      const form = e.target;
+      const vals = ['full_pay_days','half_pay_days','unpaidDays'].map(n => parseFloat(form[n].value||0));
+      if (vals.filter(v=>v>0).length !==1) {
+        alert('Enter exactly one of Full‑pay, Half‑pay, or Unpaid days.');
+        e.preventDefault();
+      }
+    });
+  });
+  </script>
+</body>
+</html>

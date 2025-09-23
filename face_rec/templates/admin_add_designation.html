@@ -1,0 +1,337 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timelok</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome (Required for icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Your Custom CSS -->
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+<body class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3 vh-100 d-flex flex-column" style="width: 250px; position: fixed; top: 0; bottom: 0;">
+
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'admin_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i>  General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'country_list' %}"><i class="fas fa-globe me-2"></i>Country</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'grade_list' %}"><i class="fas fa-list-ul me-2"></i>Grade</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'designation_list' %}"><i class="fa-solid fa-user-tie me-2"></i> Designation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_type_list' %}"><i class="fa-solid fa-users-gear"></i> Employee Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'permission_type_list' %}"><i class="fa-solid fa-user-shield me-2"></i> Permission Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'leave_type_list' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_ccompany' %}"><i class="fas fa-building me-2"></i> Contractor Company</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_type_view' %}"><i class="fas fa-plus me-2"></i> New Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_organization' %}"><i class="fas fa-building me-2"></i>Organization</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#scheduleMenu" role="button" aria-expanded="false" aria-controls="scheduleMenu">
+          <i class="fas fa-calendar-alt me-2"></i> Schedules
+        </a>
+        <div class="collapse ps-4" id="scheduleMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_schedule' %}"><i class="fas fa-plus me-2"></i>Add Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_org_schedule' %}"><i class="fa-solid fa-people-group me-2"></i>Organization Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'group_schedule_page' %}"><i class="fa-solid fa-people-group me-2"></i>Group Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa-solid fa-user-tie me-2"></i>Employee Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa fa-calendar"></i> Holidays</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage' %}"><i class="fas fa-plus me-2"></i>Manage Employees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_group_list' %}"><i class="fa-solid fa-user-plus me-2"></i>Employee Groups</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            {% if user.manager_flag == 'Y' %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            {% endif %}
+            {% if user.manager_flag == 'Y' %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-comments me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+      <li class="nav-item"><a href="{% url 'attendance_report' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Report</a></li>
+      <li class="nav-item"><a href="{% url 'privilege_management' %}" class="nav-link text-white nav-link-box"><i class="fas fa-key me-2"></i> Security</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 ms-250" style="margin-left: 250px;">
+    
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+    <div class="container mt-4">
+        <div class="card shadow-sm p-4">
+            <h5>Designation Details</h5>
+
+  <!-- Messages -->
+   {% for msg in messages %}
+          <div class="alert alert-dismissible fade show d-flex align-items-center
+              {% if msg.tags == 'error' %} alert-danger
+              {% elif msg.tags == 'info' or msg.tags == 'success' %} alert-success
+              {% else %} alert-secondary {% endif %}" role="alert">
+            <i class="fas {% if msg.tags == 'error' %}fa-times-circle{% elif msg.tags == 'info' or msg.tags == 'success' %}fa-check-circle{% else %}fa-info-circle{% endif %} me-2"></i>
+            <div>{{ msg }}</div>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    {% endfor %}
+    <form method="get" class="row mb-3">
+          <div class="col-sm-6">
+            <input name="q" value="{{ q }}" placeholder="Search by code or name or vacancy" class="form-control"/>
+          </div>
+          <div class="col-auto"><button type="submit" class="btn btn-primary">Search</button></div>
+          <div class="col-auto"><button type="button" class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#addForm">Add</button></div>
+          <div class="col-auto"><button type="button" class="btn btn-warning" id="updateToggleBtn">Update</button></div>
+          <div class="col-auto"><button type="button" class="btn btn-danger" id="deleteToggleBtn">Delete</button></div>
+    </form>
+
+  <!-- Add Form -->
+  <div class="collapse mb-3" id="addForm">
+    <form method="post" action="{% url 'designation_add' %}" class="row g-3">
+      {% csrf_token %}
+      <div class="row g-3 mb-2">
+           <div class="col-md-4">
+               <input name="code" placeholder="Code" class="form-control" required>
+           </div>
+           <div class="col-md-8">
+              <input name="designation_eng" placeholder="Designation Name" class="form-control" required>
+           </div>
+      </div>
+    <div class="row g-3 mb-2">
+      <div class="col-md-4">
+        <input name="vacancy" type="number" placeholder="Vacancy" class="form-control" required>
+      </div>
+      <div class="col-md-8">
+        <input name="remarks" placeholder="Remarks" class="form-control">
+      </div>
+    </div>
+      <div class="col-auto"><button class="btn btn-success">Submit</button></div>
+    </form>
+  </div>
+
+  <!-- View Table -->
+  <table class="table table-bordered">
+    <thead><tr><th>Code</th><th>Name</th><th>Vacancy</th><th>View</th></tr></thead>
+    <tbody>
+      {% for d in designations %}
+      <tr>
+        <td>{{ d.code }}</td><td>{{ d.designation_eng }}</td><td>{{ d.vacancy }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{ forloop.counter }}">
+            <i class="fas fa-eye"></i> View
+          </button>
+          <!-- Modal -->
+          <div class="modal fade" id="modal{{ forloop.counter }}"><div class="modal-dialog modal-lg">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title">{{ d.designation_eng }}</h5>
+               <button class="btn-close" data-bs-dismiss="modal"></button>
+             </div>
+             <div class="modal-body">
+               <table class="table table-borderless">
+                 <tr><th>Code</th><td>{{ d.code }}</td></tr>
+                 <tr><th>Name</th><td>{{ d.designation_eng }}</td></tr>
+                 <tr><th>Vacancy</th><td>{{ d.vacancy }}</td></tr>
+                 <tr><th>Remarks</th><td>{{ d.remarks }}</td></tr>
+                 <tr><th>Created</th><td>{{ d.created_date }}</td></tr>
+                 <tr><th>Last Updated</th><td>{{ d.last_updated_date }}</td></tr>
+               </table>
+             </div>
+             <div class="modal-footer">
+               <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+             </div>
+           </div>
+          </div></div>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4">No designations found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+  <!-- Update Form -->
+  <form method="post" action="{% url 'designation_update' %}" id="updateForm" style="display:none;">
+    {% csrf_token %}
+    <table class="table table-bordered">
+      <thead><tr><th>Code</th><th>Name</th><th>Vacancy</th><th>Remarks</th></tr></thead>
+      <tbody>
+        {% for d in designations %}
+        <tr>
+          <input type="hidden" name="id_{{ forloop.counter }}" value="{{ d.designation_id }}">
+          <td><input name="code_{{ forloop.counter }}" value="{{ d.code }}" class="form-control"></td>
+          <td><input name="name_{{ forloop.counter }}" value="{{ d.designation_eng }}" class="form-control"></td>
+          <td><input name="vacancy_{{ forloop.counter }}" type="number" value="{{ d.vacancy }}" class="form-control"></td>
+          <td><input name="remarks_{{ forloop.counter }}" value="{{ d.remarks }}" class="form-control"></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <input type="hidden" name="total_rows" value="{{ designations|length }}">
+    <div class="text-end"><button class="btn btn-success">Submit Updates</button></div>
+  </form>
+
+  <!-- Delete Form -->
+  <form method="post" action="{% url 'designation_delete' %}" id="deleteForm" style="display:none;">
+    {% csrf_token %}
+    <table class="table table-bordered">
+      <thead><tr><th>Code</th><th>Name</th><th>Vacancy</th><th>Action</th></tr></thead>
+      <tbody>
+        {% for d in designations %}
+        <tr>
+          <td>{{ d.code }}</td><td>{{ d.designation_eng }}</td><td>{{ d.vacancy }}</td>
+          <td>
+                        <button type="submit" name="delete_id" value="{{ d.designation_id }}" class="btn btn-sm btn-danger" 
+                        onclick="return confirm('Do you want to delete {{ d.designation_eng }}?')">Delete
+                       </button>
+                    </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </form>
+
+  <!-- Pagination -->
+  <nav><ul class="pagination">
+    {% if designations.has_previous %}<li class="page-item"><a class="page-link" href="?q={{q}}&page={{ designations.previous_page_number }}">Prev</a></li>{% endif %}
+    <li class="page-item active"><span class="page-link">{{ designations.number }}</span></li>
+    {% if designations.has_next %}<li class="page-item"><a class="page-link" href="?q={{q}}&page={{ designations.next_page_number }}">Next</a></li>{% endif %}
+  </ul></nav>
+  </div>
+</div>
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+  <script>
+     document.getElementById('updateToggleBtn').addEventListener('click', function() {
+    const form = document.getElementById('updateForm');
+    if (form.style.display === 'none') {
+      form.style.display = 'block';
+      this.textContent = 'Cancel Update';
+      this.classList.remove('btn-warning');
+      this.classList.add('btn-danger');
+    } else {
+      form.style.display = 'none';
+      this.textContent = 'Update';
+      this.classList.remove('btn-danger');
+      this.classList.add('btn-warning');
+    }
+  });
+  document.getElementById('deleteToggleBtn').addEventListener('click', function() {
+    const form = document.getElementById('deleteForm');
+    const updateForm = document.getElementById('updateForm');
+    updateForm.style.display = 'none';
+
+    if (form.style.display === 'none') {
+      form.style.display = 'block';
+      this.textContent = 'Cancel Delete';
+      this.classList.remove('btn-danger');
+      this.classList.add('btn-secondary');
+    } else {
+      form.style.display = 'none';
+      this.textContent = 'Delete';
+      this.classList.remove('btn-secondary');
+      this.classList.add('btn-danger');
+    }
+  });
+  </script>
+</body>
+</html>

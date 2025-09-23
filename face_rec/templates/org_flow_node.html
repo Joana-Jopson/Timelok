@@ -1,0 +1,12 @@
+{% for node in nodes %}
+  <li>
+    <div class="org-box {% if node.org.organization_id == user_org_id %}highlight-org{% endif %}" onclick="toggleNode(this)">
+      {{ node.org.organization_eng }}
+    </div>
+    {% if node.children %}
+      <ul class="org-tree">
+        {% include 'org_flow_node.html' with nodes=node.children user_org_id=user_org_id user_name=user_name %}
+      </ul>
+    {% endif %}
+  </li>
+{% endfor %}

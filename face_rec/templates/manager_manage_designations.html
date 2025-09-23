@@ -1,0 +1,326 @@
+<!--manager_manage_designations.html-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timelok</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body style="display: flex; height: 100vh;">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3" style="width: 250px;">
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'employee_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i> General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_permission_type' %}"><i class="fa-solid fa-user-shield me-2"></i>Permission Types</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_view_leave_types' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_dashboard' %}"><i class="fas fa-plus me-2"></i> New Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item"><a href="#" class="nav-link text-white nav-link-box"><i class="fas fa-calendar-alt me-2"></i> Schedule</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_details' %}"><i class="fas fa-plus me-2"></i> My Details</a>
+            </li>
+            {% if manage_employee_access %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage_others' %}">
+                <i class="fas fa-users-gear me-2"></i> Manage Employees
+              </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <div class="text-danger px-3 mt-2 small">
+                <i class="fas fa-ban me-1"></i> No access to Manage Employees
+              </div>
+            </li>
+            {% endif %}
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_apply_leave' %}"><i class="fas fa-plus me-2"></i> Apply Leaves</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_apply_permission' %}"><i class="fas fa-plus me-2"></i> Apply Permission</a>
+            </li>
+            {% if user.manager_flag == 'Y' %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            {% endif %}
+            {% if user.manager_flag == 'Y' %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+            {% endif %}
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+      <li class="nav-item"><a href="#" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Report</a></li>
+      <li class="nav-item"><a href="#" class="nav-link text-white nav-link-box"><i class="fas fa-key me-2"></i> Security</a></li>
+      <li class="nav-item"><a href="#" class="nav-link text-white nav-link-box"><i class="fas fa-cog me-2"></i> Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 d-flex flex-column">
+    
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
+    <!-- Dashboard Boxes -->
+    <div class="container mt-4">
+        <div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Manage Designations</h4>
+    {% if create_flag %}
+  <button class="btn btn-primary mb-3 float-end" onclick="openAddModal()">Add Designation</button>
+{% endif %}
+  </div>
+  
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Code</th>
+        <th>Designation</th>
+        <th>Vacancy</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in designations %}
+      <tr>
+        <td>{{ d.code }}</td>
+        <td>{{ d.designation_eng }}</td>
+        <td>{{ d.vacancy }}</td>
+         <td>
+    {% if view_flag %}
+    <button class="btn btn-sm btn-outline-secondary" onclick="viewDesignation({{ d.designation_id }})">
+      <i class="fa fa-eye"></i>
+    </button>
+    {% endif %}
+    {% if edit_flag %}
+    <button class="btn btn-sm btn-outline-primary" onclick="editDesignation({{ d.designation_id }})">
+      <i class="fa fa-edit"></i>
+    </button>
+    {% endif %}
+  </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addModal" tabindex="-1">
+  <div class="modal-dialog">
+    <form method="post" id="addForm">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title">Add Designation</h5></div>
+        <div class="modal-body">
+          <input type="text" name="code" class="form-control mb-2" placeholder="Code" required>
+          <input type="text" name="designation_eng" class="form-control mb-2" placeholder="Designation (English)" required>
+          <input type="number" name="vacancy" class="form-control mb-2" placeholder="Vacancy" required>
+          <textarea name="remarks" class="form-control" placeholder="Remarks"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Designation Modal -->
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Designation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" id="editForm">
+        {% csrf_token %}
+        <div class="modal-body">
+          <input type="hidden" name="id" id="edit_id">
+          <div class="mb-2">
+            <label>Code</label>
+            <input type="text" name="code" class="form-control" id="edit_code" required>
+          </div>
+          <div class="mb-2">
+            <label>Designation</label>   
+            <input type="text" name="designation_eng" class="form-control" id="edit_designation" required>
+          </div>
+          <div class="mb-2">
+            <label>Vacancy</label>
+            <input type="number" name="vacancy" class="form-control" id="edit_vacancy" required>
+          </div>
+          <div class="mb-2">
+            <label>Remarks</label>
+            <textarea name="remarks" class="form-control" id="edit_remarks"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- View Designation Modal -->
+<div class="modal fade" id="viewModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h5 class="modal-title">Designation Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Code:</strong> <span id="view_code"></span></p>
+        <p><strong>Designation:</strong> <span id="view_designation"></span></p>
+        <p><strong>Vacancy:</strong> <span id="view_vacancy"></span></p>
+        <p><strong>Remarks:</strong> <span id="view_remarks"></span></p>
+        <p><strong>Created Date:</strong> <span id="view_created"></span></p>
+        <p><strong>Last Updated:</strong> <span id="view_updated"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+  <script>
+function viewDesignation(id) {
+  fetch(`/get_designation_detail/${id}/`).then(res => res.json()).then(data => {
+    document.getElementById('view_code').innerText = data.code;
+    document.getElementById('view_designation').innerText = data.designation_eng;
+    document.getElementById('view_vacancy').innerText = data.vacancy;
+    document.getElementById('view_remarks').innerText = data.remarks;
+    document.getElementById('view_created').innerText = data.created_date;
+    document.getElementById('view_updated').innerText = data.last_updated_date;
+    new bootstrap.Modal(document.getElementById('viewModal')).show();
+  });
+}
+
+function editDesignation(id) {
+  fetch(`/get_designation_detail/${id}/`).then(res => res.json()).then(data => {
+    const form = document.getElementById('editForm');
+    document.getElementById('edit_id').value = id;
+    document.getElementById('edit_code').value = data.code;
+document.getElementById('edit_designation').value = data.designation_eng;
+document.getElementById('edit_vacancy').value = data.vacancy;
+document.getElementById('edit_remarks').value = data.remarks;
+
+
+    form.action = `/update_designation/${id}/`;
+    new bootstrap.Modal(document.getElementById('editModal')).show();
+  });
+}
+
+document.getElementById('addForm').onsubmit = function(e) {
+  e.preventDefault();
+  fetch("{% url 'add_designation' %}", {
+    method: 'POST',
+    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+    body: new FormData(this)
+  }).then(res => res.json()).then(data => {
+    if (data.status === 'success') location.reload();
+  });
+}
+
+document.getElementById('editForm').onsubmit = function(e) {
+  e.preventDefault();
+  fetch(this.action, {
+    method: 'POST',
+    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+    body: new FormData(this)
+  }).then(res => res.json()).then(data => {
+    if (data.status === 'success') location.reload();
+  });
+}
+function openAddModal() {
+  document.getElementById('addForm').reset();  // clear previous data
+  new bootstrap.Modal(document.getElementById('addModal')).show();
+}
+
+</script>
+
+</body>
+</html>

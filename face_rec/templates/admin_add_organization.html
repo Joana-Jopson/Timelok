@@ -1,0 +1,393 @@
+<!--admin_add_organization.html-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timelok Dashboard</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3 vh-100 d-flex flex-column" style="width: 250px; position: fixed; top: 0; bottom: 0;">
+
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'admin_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i>  General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'country_list' %}"><i class="fas fa-globe me-2"></i>Country</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'grade_list' %}"><i class="fas fa-list-ul me-2"></i>Grade</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'designation_list' %}"><i class="fa-solid fa-user-tie me-2"></i> Designation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_type_list' %}"><i class="fa-solid fa-users-gear"></i> Employee Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'permission_type_list' %}"><i class="fa-solid fa-user-shield me-2"></i> Permission Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'leave_type_list' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_ccompany' %}"><i class="fas fa-building me-2"></i> Contractor Company</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_type_view' %}"><i class="fas fa-plus me-2"></i> New Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_organization' %}"><i class="fas fa-building me-2"></i>Organization</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#scheduleMenu" role="button" aria-expanded="false" aria-controls="scheduleMenu">
+          <i class="fas fa-calendar-alt me-2"></i> Schedules
+        </a>
+        <div class="collapse ps-4" id="scheduleMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_schedule' %}"><i class="fas fa-plus me-2"></i>Add Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'admin_add_org_schedule' %}"><i class="fa-solid fa-people-group me-2"></i>Organization Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'group_schedule_page' %}"><i class="fa-solid fa-people-group me-2"></i>Group Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa-solid fa-user-tie me-2"></i>Employee Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_schedule_page' %}"><i class="fa fa-calendar"></i> Holidays</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage' %}"><i class="fas fa-plus me-2"></i>Manage Employees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_group_list' %}"><i class="fa-solid fa-user-plus me-2"></i>Employee Groups</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-comments me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+      <li class="nav-item"><a href="{% url 'attendance_report' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Report</a></li>
+      <li class="nav-item"><a href="{% url 'privilege_management' %}" class="nav-link text-white nav-link-box"><i class="fas fa-key me-2"></i> Security</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 ms-250" style="margin-left: 250px;">
+    
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
+    <!-- Dashboard Boxes -->
+    <div class="container mt-4">
+        <div class="card shadow-sm p-4">
+            <h5>Organizations</h5>
+            <!-- Messages -->
+             {% for msg in messages %}
+             <div class="alert alert-dismissible fade show d-flex align-items-center
+               {% if msg.tags == 'error' %} alert-danger
+                {% elif msg.tags == 'info' or msg.tags == 'success' %} alert-success
+                 {% else %} alert-secondary {% endif %}" role="alert">
+                  <i class="fas {% if msg.tags == 'error' %}fa-times-circle{% elif msg.tags == 'info' or msg.tags == 'success' %}fa-check-circle{% else %}fa-info-circle{% endif %} me-2"></i>
+                  <div>{{ msg }}</div>
+                  <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+             {% endfor %}
+        <form method="GET" class="row g-3 align-items-center mb-3">
+    <div class="col-auto">
+      <input type="text" class="form-control" name="search" placeholder="Search by code, name, or type" value="{{ request.GET.search }}">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-outline-primary">Search</button>
+    </div>
+    <div class="col-auto">
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addOrgModal">
+        <i class="fas fa-plus me-1"></i>Add Organization
+      </button>
+    </div>
+  </form>
+
+  <!-- Organization Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Code</th>
+          <th>Organization Type</th>
+          <th>Organization Name</th>
+          <th>Location</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for org in organizations %}
+        <tr>
+          <td>{{ org.code }}</td>
+          <td>{{ org.organization_type_id.organization_type_eng }}</td>
+          <td>{{ org.organization_eng }}</td>
+          <td>{{ org.location_id.location_eng }}</td>
+          <td class="text-center">
+            <!-- View -->
+            <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewOrgModal{{ org.organization_id }}">
+              <i class="fas fa-eye"></i>
+            </button>
+            <!-- Edit -->
+            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editOrgModal{{ org.organization_id }}">
+              <i class="fas fa-edit"></i>
+            </button>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="text-center">No organizations found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <nav class="d-flex justify-content-center">
+    <ul class="pagination">
+      {% if organizations.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">&laquo;</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ organizations.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Previous</a></li>
+      {% endif %}
+      <li class="page-item active"><span class="page-link">{{ organizations.number }}</span></li>
+      {% if organizations.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ organizations.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ organizations.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">&raquo;</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+
+<!-- Add Organization Modal -->
+<div class="modal fade" id="addOrgModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <form method="POST" action="{% url 'add_organization' %}">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">Add Organization</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Organization Type *</label>
+            <select name="organization_type" class="form-select" required>
+              <option value="">Select</option>
+              {% for type in org_types %}
+              <option value="{{ type.organization_type_id }}">{{ type.organization_type_eng }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Code *</label>
+            <input type="text" name="code" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Name (English) *</label>
+            <input type="text" name="organization_eng" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Parent Organization</label>
+            <select name="parent_id" class="form-select">
+              <option value="">None</option>
+              {% for parent in organizations %}
+              <option value="{{ parent.organization_id }}">{{ parent.organization_eng }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Location</label>
+            <select name="location_id" class="form-select">
+              <option value="">Select</option>
+              {% for loc in locations %}
+              <option value="{{ loc.location_id }}">{{ loc.location_eng }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- View & Edit Modals (Looped Per Organization) -->
+{% for org in organizations %}
+<!-- View -->
+<div class="modal fade" id="viewOrgModal{{ org.organization_id }}" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title">View Organization</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body row g-3">
+        <div class="col-md-6"><strong>Type:</strong> {{ org.organization_type.organization_type_eng }}</div>
+        <div class="col-md-6"><strong>Code:</strong> {{ org.code }}</div>
+        <div class="col-md-6"><strong>Name:</strong> {{ org.organization_eng }}</div>
+        <div class="col-md-6"><strong>Parent:</strong> {{ org.parent_id.organization_eng }}</div>
+        <div class="col-md-6"><strong>Location:</strong> {{ org.location_id.location_name }}</div>
+        <div class="col-md-6"><strong>Created By:</strong> {{ org.created_id }}</div>
+        <div class="col-md-6"><strong>Created Date:</strong> {{ org.created_date }}</div>
+        <div class="col-md-6"><strong>Updated By:</strong> {{ org.last_updated_id }}</div>
+        <div class="col-md-6"><strong>Updated Date:</strong> {{ org.last_updated_date }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit -->
+<div class="modal fade" id="editOrgModal{{ org.organization_id }}" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <form method="POST" action="{% url 'update_organization' org.organization_id %}">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title">Update Organization</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Organization Type *</label>
+            <select name="organization_type" class="form-select" required>
+              {% for type in org_types %}
+              <option value="{{ type.organization_type_id }}" {% if org.organization_type.organization_type_id == type.organization_type_id %}selected{% endif %}>{{ type.organization_type_eng }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Code *</label>
+            <input type="text" name="code" class="form-control" value="{{ org.code }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Name (English) *</label>
+            <input type="text" name="organization_eng" class="form-control" value="{{ org.organization_eng }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Parent Organization</label>
+            <select name="parent_id" class="form-select">
+              <option value="">None</option>
+              {% for parent in organizations %}
+              {% if parent.organization_id != org.organization_id %}
+              <option value="{{ parent.organization_id }}" {% if org.parent_id and org.parent_id.organization_id == parent.organization_id %}selected{% endif %}>
+                {{ parent.organization_eng }}
+              </option>
+              {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Location</label>
+            <select name="location_id" class="form-select">
+                <option value="">Select</option>
+              {% for loc in locations %}
+              <option value="{{ loc.location_id }}" {% if org.location_id and org.location_id.location_id == loc.location_id %}selected{% endif %}>{{ loc.location_eng }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-warning">Update</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endfor %}
+</div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+  <script>
+    setTimeout(() => {
+  const alerts = document.querySelectorAll('.alert');
+  alerts.forEach(alert => alert.remove());
+}, 5000);
+  </script>
+</body>
+</html>

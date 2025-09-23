@@ -1,0 +1,292 @@
+<!--employee_view_leave_types.html-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timelok Dashboard</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="d-flex min-vh-100">
+
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3 vh-100 d-flex flex-column" style="width: 250px; position: fixed; top: 0; bottom: 0;">
+    <ul class="nav flex-column">
+      <li class="nav-item mb-3"><i class="fas fa-clock me-2"></i> <strong>Timelok</strong></li>
+      <li class="nav-item"><a href="{% url 'employee_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-home me-2"></i> Home</a></li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#generalMenu" role="button" aria-expanded="false" aria-controls="generalMenu">
+          <i class="fas fa-bars me-2"></i> General
+        </a>
+        <div class="collapse ps-4" id="generalMenu">
+          <ul class="nav flex-column">
+            {% if manage_designation_access %}
+              <li class="nav-item">
+                <a class="nav-link text-white nav-link-box" href="{% url 'manager_manage_designations' %}">
+                  <i class="fas fa-id-badge me-2"></i> Manage Designations
+                </a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <div class="text-danger px-3 mt-2 small">
+                  <i class="fas fa-ban me-1"></i> No access to Manage Designations
+                </div>
+              </li>
+            {% endif %}
+
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_permission_type' %}"><i class="fa-solid fa-user-shield me-2"></i>Permission Types</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_view_leave_types' %}"><i class="fa-solid fa-person-walking-luggage me-2"></i> Leave Type</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#organizationMenu" role="button" aria-expanded="false" aria-controls="organizationMenu">
+          <i class="fas fa-sitemap me-2"></i> Organization
+        </a>
+        <div class="collapse ps-4" id="organizationMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_dashboard' %}"><i class="fas fa-plus me-2"></i> New Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'organization_hierarchy' %}"><i class="fas fa-building me-2"></i>Organization Structure</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item"><a href="{% url 'employee_schedule_calendar' %}" class="nav-link text-white nav-link-box"><i class="fas fa-calendar-alt me-2"></i> Schedule</a></li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#employeeMenu" role="button" aria-expanded="false" aria-controls="employeeMenu">
+          <i class="fas fa-users me-2"></i> Employees
+        </a>
+        <div class="collapse ps-4" id="employeeMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_details' %}"><i class="fas fa-plus me-2"></i> My Details</a>
+            </li>
+            {% if manage_employee_access %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_manage_others' %}">
+                <i class="fas fa-users-gear me-2"></i> Manage Employees
+              </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <div class="text-danger px-3 mt-2 small">
+                <i class="fas fa-ban me-1"></i> No access to Manage Employees
+              </div>
+            </li>
+            {% endif %}
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#leavesMenu" role="button" aria-expanded="false" aria-controls="leavesMenu">
+          <i class="fas fa-clipboard me-2"></i> Leaves
+        </a>
+        <div class="collapse ps-4" id="leavesMenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_apply_leave' %}"><i class="fas fa-plus me-2"></i> Apply Leaves</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_apply_permission' %}"><i class="fas fa-plus me-2"></i> Apply Permission</a>
+            </li>
+            {% if user.manager_flag == 'Y' %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'managers_approve_leave' %}">
+                    <i class="fas fa-check me-2"></i> Approve Leaves
+                </a>
+            </li>
+            {% endif %}
+            {% if user.manager_flag == 'Y' %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'manager_approve_permission' %}">
+                <i class="fas fa-user-check me-2"></i> Approve Permissions
+              </a>
+            </li>
+            {% endif %}
+
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item"><a href="{% url 'chat_dashboard' %}" class="nav-link text-white nav-link-box"><i class="fas fa-chart-bar me-2"></i> Chat</a></li>
+      <li class="nav-item">
+        <a href="{% url 'chatbot' %}" class="nav-link text-white nav-link-box">
+          <i class="fas fa-robot me-2"></i> Chatbot
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white nav-link-box" data-bs-toggle="collapse" href="#reportMenu" role="button" aria-expanded="false" aria-controls="reportMenu">
+          <i class="fas fa-chart-bar me-2"></i> Report
+        </a>
+        <div class="collapse ps-4" id="reportMenu">
+          <ul class="nav flex-column">
+            {% if user.manager_flag == 'Y' %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'managers_employee_report' %}"><i class="fas fa-plus me-2"></i> Employee Reports</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'employee_attendance_reports' %}"><i class="fas fa-plus me-2"></i> My Reports</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 ms-250" style="margin-left: 250px;">
+    
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div class="container-fluid justify-content-between">
+        <span class="navbar-brand"><i class="fas fa-clock me-2"></i> Timelok</span>
+        <form method="POST" action="{% url 'verify_logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
+    <!-- Dashboard Boxes -->
+<div class="container mt-4">
+  <div class="card shadow-sm p-4">
+    <h4>Leave Types</h4>
+    <div class="container mt-4">
+    </div>
+  </div>
+
+
+  <table class="table table-bordered table-striped" id="leaveTypeTable">
+    <thead class="table-dark">
+      <tr>
+        <th>Code</th>
+        <th>Description</th>
+        <th>Gender</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for leave in leave_types %}
+      <tr>
+        <td>{{ leave.code }}</td>
+        <td>{{ leave.leaveDesc_eng }}</td>
+        <td>
+          {% if leave.specific_gender == 'M' %} Male
+          {% elif leave.specific_gender == 'F' %} Female
+          {% else %} All
+          {% endif %}
+        </td>
+        <td>
+          <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal{{ leave.leave_type_id }}">
+            <i class="fa fa-eye"></i>
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="viewModal{{ leave.leave_type_id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ leave.leave_type_id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                  <h5 class="modal-title" id="viewModalLabel{{ leave.leave_type_id }}">Leave Type Details</h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <dl class="row">
+                    <dt class="col-sm-4">Code:</dt>
+                    <dd class="col-sm-8">{{ leave.code }}</dd>
+
+                    <dt class="col-sm-4">Description:</dt>
+                    <dd class="col-sm-8">{{ leave.leaveDesc_eng }}</dd>
+
+                    <dt class="col-sm-4">Gender:</dt>
+                    <dd class="col-sm-8">
+                      {% if leave.specific_gender == 'M' %} Male
+                      {% elif leave.specific_gender == 'F' %} Female
+                      {% else %} All
+                      {% endif %}
+                    </dd>
+
+                    <dt class="col-sm-4">Apply Prior To Days:</dt>
+                    <dd class="col-sm-8">{{ leave.apply_prior_to_days }}</dd>
+
+                    <dt class="col-sm-4">Official Flag:</dt>
+                    <dd class="col-sm-8">{{ leave.official_flag }}</dd>
+
+                    <dt class="col-sm-4">Status:</dt>
+                    <dd class="col-sm-8">
+                      {% if leave.status_Flag %} Active {% else %} Inactive {% endif %}
+                    </dd>
+
+                    <dt class="col-sm-4">Total Entitled Days:</dt>
+                    <dd class="col-sm-8">{{ leave.total_entitled_days }}</dd>
+
+                    <dt class="col-sm-4">Full Pay Days:</dt>
+                    <dd class="col-sm-8">{{ leave.full_pay_days }}</dd>
+
+                    <dt class="col-sm-4">Half Pay Days:</dt>
+                    <dd class="col-sm-8">{{ leave.half_pay_days }}</dd>
+
+                    <dt class="col-sm-4">Unpaid Days:</dt>
+                    <dd class="col-sm-8">{{ leave.unpaidDays }}</dd>
+
+                    <dt class="col-sm-4">Last Updated:</dt>
+                    <dd class="col-sm-8">{{ leave.last_updated_date|date:"d M Y H:i" }}</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+  </div>
+    </div>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+  <script>
+  document.getElementById("searchInput").addEventListener("keyup", function () {
+    const filter = this.value.toLowerCase();
+    const rows = document.querySelectorAll("#leaveTypeTable tbody tr");
+    rows.forEach(row => {
+      const code = row.cells[0].textContent.toLowerCase();
+      const desc = row.cells[1].textContent.toLowerCase();
+      const gender = row.cells[2].textContent.toLowerCase();
+      row.style.display = (code.includes(filter) || desc.includes(filter) || gender.includes(filter)) ? "" : "none";
+    });
+  });
+
+  document.getElementById("sortSelect").addEventListener("change", function () {
+    const colMap = { "code": 0, "leaveDesc_eng": 1, "specific_gender": 2 };
+    const colIndex = colMap[this.value];
+    const table = document.getElementById("leaveTypeTable");
+    const tbody = table.tBodies[0];
+    const rows = Array.from(tbody.rows);
+
+    rows.sort((a, b) => a.cells[colIndex].innerText.localeCompare(b.cells[colIndex].innerText));
+    rows.forEach(row => tbody.appendChild(row));
+  });
+</script>
+
+</body>
+</html>
