@@ -9,43 +9,51 @@ The goal of Timelok is simple:
 ✨ Features
 
 -> Face Recognition Attendance
-Secure and accurate punch-in/out using OpenCV + FaceNet.
+
+   Secure and accurate punch-in/out using OpenCV + FaceNet.
 
 -> Smart Chat System
+   
    Managers and employees can chat, share files, and collaborate. Messages are automatically checked for inappropriate language.
 
 -> AI Chatbot Assistant
+
    Powered by spaCy + Transformers, it understands natural questions like:
    “What time did I punch in yesterday?”
    “Do I have leave next week?”
    “Who was late today?”
 
 -> Role & Privilege Management
+
    Fine-grained access to modules/submodules with scopes (OWN, NODE, ALL).
 
 -> Dashboards & Analytics
+
    Attendance summaries, latecomer detection, trends, and anomaly reports.
 
 -> Holiday & Calendar Management
+
    Organization-wide holidays + per-employee punch calendar views.
 
 
 ⚙️ Installation
 
 1. Clone the repository
-<pre> ```git clone https://github.com/<yourusername>/Timelok.git
-cd Timelok``` </pre>
+<pre> git clone https://github.com/<yourusername>/Timelok.git
+cd Timelok </pre>
 
 2. Create a virtual environment
-<pre> ```python -m venv venv
+<pre> python -m venv venv
 source venv/bin/activate    # On Mac/Linux
-venv\Scripts\activate       # On Windows``` </pre>
+venv\Scripts\activate       # On Windows </pre>
 
 3. Install dependencies
-All requirements are listed in requirements.txt.
+   
+  All requirements are listed in requirements.txt.
 
-4. Database Setup
-Timelok uses SQL Server with mssql-django and pyodbc.
+5. Database Setup
+   
+  Timelok uses SQL Server with mssql-django and pyodbc.
 
 📂 Project Notes
 
