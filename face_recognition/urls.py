@@ -135,8 +135,8 @@ urlpatterns = [
     path('employee/leave-types/', views.employee_view_leave_types, name='employee_view_leave_types'),
     path('employees/manage/', views.manage_employees, name='employee_manage_others'),
     path('employees/add/', views.employee_add_employee, name='employee_add_employee'),
-    path('employees/update/<int:employee_id>/', views.employee_update_employee, name='employee_update_employee'),  # for POST
-    path('employees/modal/<int:emp_id>/', views.update_employee_modal, name='employee_update_modal'),  # for AJAX GET
+    path('employees/update/<int:employee_id>/', views.employee_update_employee, name='employee_update_employee'), 
+    path('employees/modal/<int:emp_id>/', views.update_employee_modal, name='employee_update_modal'),  
     path('employees/delete/<int:employee_id>/', views.employee_delete_employee, name='delete_employee'),
     path('manager_manage_designations/', views.manager_manage_designations, name='manager_manage_designations'),
     path('add_designation/', views.add_designation, name='add_designation'),
@@ -148,6 +148,5 @@ urlpatterns = [
     path('attendance/pdf/<str:emp_id>/<str:month>/', views.employee_attendance_report_pdf, name='employee_attendance_report_pdf'),
      path('employee_schedule/', views.employee_schedule_calendar, name='employee_schedule_calendar'),
 
-    #path('test_manager/', views.test_manager_filter, name='test_manager_filter'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
