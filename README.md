@@ -33,14 +33,13 @@ Secure and accurate punch-in/out using OpenCV + FaceNet.
 ⚙️ Installation
 
 1. Clone the repository
-<pre> ``` git clone https://github.com/<yourusername>/Timelok.git
-cd Timelok
-   ``` </pre>
+<pre> ```git clone https://github.com/<yourusername>/Timelok.git
+cd Timelok``` </pre>
 
 2. Create a virtual environment
-<pre> ``` python -m venv venv
+<pre> ```python -m venv venv
 source venv/bin/activate    # On Mac/Linux
-venv\Scripts\activate       # On Windows  ``` </pre>
+venv\Scripts\activate       # On Windows``` </pre>
 
 3. Install dependencies
 All requirements are listed in requirements.txt.
