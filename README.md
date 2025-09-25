@@ -62,8 +62,11 @@ Make sure you have SQL Server running and update your settings.py with your DB c
 
 -> HR systems are often clunky and outdated. Timelok was built to be:
 -> Smart → with AI features that understand human questions.
+
 -> Secure → face recognition + role-based access.
+
 -> Transparent → analytics dashboards for managers and employees.
+
 -> Human-friendly → simple design, less paperwork, more automation.
 
 🔑 Timelok: Because time is too valuable to waste on manual HR work.
